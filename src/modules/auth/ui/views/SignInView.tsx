@@ -26,7 +26,8 @@ import {
 } from "@/components/ui/form";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z
@@ -37,6 +38,7 @@ const formSchema = z.object({
 });
 
 const SigninView = () => {
+  const searchParams = useSearchParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +49,7 @@ const SigninView = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-
+  if (!!searchParams.get("error")) setError(searchParams.get("error"));
   const handleGoogleLogin = async () => {
     setLoading(true);
     setError(null);
@@ -56,6 +58,7 @@ const SigninView = () => {
         {
           provider: "google",
           callbackURL: "/",
+          errorCallbackURL:"/sign-in?error=use_college_mail_id"
         },
         {
           onSuccess: () => {
@@ -70,6 +73,7 @@ const SigninView = () => {
       console.log(data);
     } catch (error) {
       console.log("Error while signin in frontend in catch block , ", error);
+
       setError("Something went wrong");
     } finally {
       setLoading(false);
@@ -109,7 +113,7 @@ const SigninView = () => {
     <div className="flex min-h-screen items-center justify-center p-6">
       <Card className="w-full max-w-md shadow-xl rounded-2xl border border-border">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-xl sm:text-2xl font-bold"> 
+          <CardTitle className="text-xl sm:text-2xl font-bold">
             Login to your account
           </CardTitle>
           <CardDescription className="text-xs sm:text-sm text-muted-foreground">
@@ -206,10 +210,10 @@ const SigninView = () => {
               disabled={loading}
               onClick={handleGoogleLogin}
               variant="outline"
-              className="flex-1 cursor-pointer flex items-center justify-center gap-2 py-2 sm:py-3 text-xs sm:text-sm"
+              className="flex-1 text-muted-foreground hover:text-accent-foreground cursor-pointer flex items-center justify-center gap-2 py-2 sm:py-3 text-xs sm:text-sm"
             >
               <FcGoogle className="size-5" />
-              <span className="text-muted-foreground">sign in with Google</span>
+              <span className="">sign in with Google</span>
             </Button>
           </div>
 
