@@ -39,6 +39,7 @@ const formSchema = z.object({
 
 const SigninView = () => {
   const searchParams = useSearchParams();
+  const searchParamsError = searchParams.get("error") as string;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,19 +47,20 @@ const SigninView = () => {
       password: "",
     },
   });
-  const [error, setError] = useState<string | null>(null);
+  const [errorValue, setErrorValue] = useState<string | null>(
+    searchParamsError
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  if (!!searchParams.get("error")) setError(searchParams.get("error"));
   const handleGoogleLogin = async () => {
     setLoading(true);
-    setError(null);
+    setErrorValue(null);
     try {
       const data = await authClient.signIn.social(
         {
           provider: "google",
           callbackURL: "/",
-          errorCallbackURL:"/sign-in?error=use_college_mail_id"
+          errorCallbackURL: "/sign-in?error=use_college_mail_id",
         },
         {
           onSuccess: () => {
@@ -66,7 +68,7 @@ const SigninView = () => {
           },
           onError: (error) => {
             console.log("Signin error");
-            setError(error.error.message);
+            setErrorValue(error.error.message);
           },
         }
       );
@@ -74,14 +76,14 @@ const SigninView = () => {
     } catch (error) {
       console.log("Error while signin in frontend in catch block , ", error);
 
-      setError("Something went wrong");
+      setErrorValue("Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    setError(null);
+    setErrorValue(null);
     setLoading(true);
     const { email, password } = values;
     try {
@@ -93,7 +95,7 @@ const SigninView = () => {
         {
           onError: (error) => {
             console.log("Signin error");
-            setError(error.error.message);
+            setErrorValue(error.error.message);
           },
           onSuccess: () => {
             console.log("Signin success");
@@ -103,7 +105,7 @@ const SigninView = () => {
       );
     } catch (error) {
       console.log("Error while signin in frontend in catch block , ", error);
-      setError("Something went wrong");
+      setErrorValue("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -177,10 +179,10 @@ const SigninView = () => {
                 )}
               />
 
-              {!!error && (
+              {!!errorValue && (
                 <Alert className="bg-red-50 text-red-700 border border-red-200 flex items-center gap-2 text-xs sm:text-sm">
                   <OctagonAlertIcon className="w-4 h-4" />
-                  <AlertTitle>{error}</AlertTitle>
+                  <AlertTitle>{errorValue}</AlertTitle>
                 </Alert>
               )}
 
