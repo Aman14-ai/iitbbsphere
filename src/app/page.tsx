@@ -14,7 +14,7 @@ export default async function Home() {
     redirect("/sign-in");
   }
   if (!session?.user.email.endsWith("@iitbbs.ac.in")) {
-    //await db.delete(user).where(eq(user.id, session.user.id));
+    await db.delete(user).where(eq(user.id, session.user.id));
     redirect("/sign-in?error=use your college mail id");
   }
 
