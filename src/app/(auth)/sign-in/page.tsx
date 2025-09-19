@@ -1,8 +1,12 @@
 import SignInView from "@/modules/auth/ui/views/SignInView";
-import React from "react";
+import React, { Suspense } from "react";
 
 const page = () => {
-  return <SignInView />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInView />
+    </Suspense>
+  );
 };
 
 export default page;
