@@ -1,8 +1,8 @@
 import { ModeToggle } from "@/components/ModdleToggler";
-import { db } from "@/db";
-import { user } from "@/db/schema";
+// import { db } from "@/db";
+// import { user } from "@/db/schema";
 import { auth } from "@/lib/auth";
-import { eq } from "drizzle-orm";
+// import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -14,8 +14,8 @@ export default async function Home() {
     redirect("/sign-in");
   }
   if (!session?.user.email.endsWith("@iitbbs.ac.in")) {
-    await db.delete(user).where(eq(user.id, session.user.id));
-    redirect("/sign-in?error=use your college mail id");
+    //await db.delete(user).where(eq(user.id, session.user.id));
+    redirect("/sign-in?error=use your ittbbs mail id");
   }
 
   return (

@@ -65,6 +65,7 @@ const SigninView = () => {
         {
           onSuccess: () => {
             console.log("Signin success");
+            router.push("/")
           },
           onError: (error) => {
             console.log("Signin error");
