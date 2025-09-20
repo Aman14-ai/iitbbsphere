@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React  from "react";
 import UserButton from "./UserButton";
 import { generatedAvatarUrl } from "@/lib/avatar";
 import { ModeToggle } from "@/components/ModdleToggler";
@@ -42,7 +42,7 @@ const Navbar = () => {
             <div className="p-1 bg-primary rounded-md">
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span>StudySphere</span>
+            <span>IITBBSphere</span>
           </Link>
 
           {/* Navigation Links */}

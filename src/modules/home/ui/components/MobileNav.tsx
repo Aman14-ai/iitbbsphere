@@ -78,7 +78,7 @@ const MobileNav = () => {
           <div className="p-1 bg-primary rounded-md">
             <Sparkles className="h-4 w-4 text-primary-foreground" />
           </div>
-          <span className="font-medium">StudySphere</span>
+          <span className="font-medium">IITBBSphere</span>
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
