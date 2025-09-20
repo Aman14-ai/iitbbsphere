@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import UserButton from "./UserButton";
 import { generatedAvatarUrl } from "@/lib/avatar";
 import { ModeToggle } from "@/components/ModdleToggler";
@@ -31,80 +31,83 @@ const Navbar = () => {
       : []),
   ];
 
+
   return (
-    <nav className="sticky py-1 shadow-lg top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-        {/* Logo/Brand */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-xl text-foreground"
-        >
-          <div className="p-1 bg-primary rounded-md">
-            <Sparkles className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span>StudySphere</span>
-        </Link>
-
-        {/* Navigation Links */}
-        <ul className="hidden md:flex items-center justify-center gap-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-foreground/60 hover:text-foreground hover:bg-accent"
-                  }`}
-                >
-                  {item.icon}
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-          <li>
-            <ModeToggle />
-          </li>
-        </ul>
-
-        {/* Mobile menu button (simplified) */}
-        <div className="md:hidden">
-          <MobileNav />
-        </div>
-
-        {/* User actions */}
-        <div className=" items-center gap-2 hidden md:flex">
-          {session ? (
-            <UserButton
-              onSignOut={() => authClient.signOut()}
-              name={session.user.name}
-              email={session.user.email}
-              image={
-                session.user.image ||
-                generatedAvatarUrl({
-                  seed: session.user.name,
-                  variant: "initials",
-                })
-              }
-            />
-          ) : (
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => router.push("/sign-up")}
-                className="hidden sm:inline-flex"
-              >
-                Sign Up
-              </Button>
-              <Button onClick={() => router.push("/sign-in")}>Sign In</Button>
+    <>
+      
+      <nav className="py-1 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+          <Link
+            href="/"
+            className="flex items-center gap-2 font-bold text-xl text-foreground"
+          >
+            <div className="p-1 bg-primary rounded-md">
+              <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
-          )}
+            <span>StudySphere</span>
+          </Link>
+
+          {/* Navigation Links */}
+          <ul className="hidden md:flex items-center justify-center gap-1">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                      isActive
+                        ? "bg-primary text-primary-foreground"
+                        : "text-foreground/60 hover:text-foreground hover:bg-accent"
+                    }`}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+            <li>
+              <ModeToggle />
+            </li>
+          </ul>
+
+          {/* Mobile menu button (simplified) */}
+          <div className="md:hidden">
+            <MobileNav />
+          </div>
+
+          {/* User actions */}
+          <div className=" items-center gap-2 hidden md:flex">
+            {session ? (
+              <UserButton
+                onSignOut={() => authClient.signOut()}
+                name={session.user.name}
+                email={session.user.email}
+                image={
+                  session.user.image ||
+                  generatedAvatarUrl({
+                    seed: session.user.name,
+                    variant: "initials",
+                  })
+                }
+              />
+            ) : (
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/sign-up")}
+                  className="hidden sm:inline-flex"
+                >
+                  Sign Up
+                </Button>
+                <Button onClick={() => router.push("/sign-in")}>Sign In</Button>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 
