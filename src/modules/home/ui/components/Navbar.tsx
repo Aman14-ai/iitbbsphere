@@ -31,10 +31,8 @@ const Navbar = () => {
       : []),
   ];
 
-
   return (
     <>
-      
       <nav className="py-1 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <Link
@@ -81,7 +79,10 @@ const Navbar = () => {
           <div className=" items-center gap-2 hidden md:flex">
             {session ? (
               <UserButton
-                onSignOut={() => authClient.signOut()}
+                onSignOut={() => {
+                  authClient.signOut();
+                  window.location.reload();
+                }}
                 name={session.user.name}
                 email={session.user.email}
                 image={
