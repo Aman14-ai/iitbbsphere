@@ -10,21 +10,21 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  if (!session) {
-    redirect("/sign-in");
-  }
-  if (!session?.user.email.endsWith("@iitbbs.ac.in")) {
-    //await db.delete(user).where(eq(user.id, session.user.id));
-    redirect("/sign-in?error=use your ittbbs mail id");
-  } else {
-    await db
-      .update(user)
-      .set({ emailVerified: true })
-      .where(eq(user.id, session.user.id));
-  }
+  // const session = await auth.api.getSession({
+  //   headers: await headers(),
+  // });
+  // if (!session) {
+  //   redirect("/sign-in");
+  // }
+  // if (!session?.user.email.endsWith("@iitbbs.ac.in")) {
+  //   //await db.delete(user).where(eq(user.id, session.user.id));
+  //   redirect("/sign-in?error=use your ittbbs mail id");
+  // } else {
+  //   await db
+  //     .update(user)
+  //     .set({ emailVerified: true })
+  //     .where(eq(user.id, session.user.id));
+  // }
 
-  return <HomeView />;
+  return <div className="bg-muted h-screen"><HomeView /></div>;
 }
