@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { generatedAvatarUrl } from "@/lib/avatar";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
@@ -26,7 +27,13 @@ export function ModeToggle() {
     <>
       <div>
         <Image
-          src={session?.user.image || "/next.svg"}
+          src={
+            session?.user.image ||
+            generatedAvatarUrl({
+              seed: session?.user.name ?? "user",
+              variant: "initials",
+            })
+          }
           alt="user image"
           width={30}
           height={30}
@@ -35,13 +42,19 @@ export function ModeToggle() {
         <br />
         {session?.user.email}
         <br />
-        <Button onClick={() => authClient.signOut({
-          fetchOptions:{
-            onSuccess: () => {
-              router.push('/sign-in');
-            }
+        <Button
+          onClick={() =>
+            authClient.signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  router.push("/sign-in");
+                },
+              },
+            })
           }
-        })}>Sign out</Button>
+        >
+          Sign out
+        </Button>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
