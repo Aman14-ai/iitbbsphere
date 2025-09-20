@@ -10,9 +10,9 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  // const session = await auth.api.getSession({
-  //   headers: await headers(),
-  // });
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   // if (!session) {
   //   redirect("/sign-in");
   // }
@@ -25,6 +25,13 @@ export default async function Home() {
   //     .set({ emailVerified: true })
   //     .where(eq(user.id, session.user.id));
   // }
+  if(session && !session.user.email.endsWith("@iitbbs.ac.in")) {
+    redirect("/sign-in?error=use your ittbbs mail id");
+  }
 
-  return <div className="bg-muted h-screen"><HomeView /></div>;
+  return (
+    <div className="bg-muted h-screen">
+      <HomeView />
+    </div>
+  );
 }
