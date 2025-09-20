@@ -30,7 +30,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-muted h-screen">
+    <div className="bg-background  h-screen">
       <HomeView />
     </div>
   );

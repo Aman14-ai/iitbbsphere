@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="py-1 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="py-1 shadow-2xl shadow-primary/20 rounded-md z-50 sticky top-0 w-full border-b border-primary/10  backdrop-blur-xl">
         <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <Link
             href="/"
