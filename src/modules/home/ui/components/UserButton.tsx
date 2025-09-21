@@ -9,7 +9,6 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
 import React from "react";
 import { LogOut, User, Settings, HelpCircle } from "lucide-react";
-import { ModeToggle } from "@/components/ModdleToggler";
 
 type Props = {
   name: string;

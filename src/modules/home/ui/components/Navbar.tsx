@@ -34,17 +34,24 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="py-1 shadow-lg shadow-primary/20 rounded-md z-50 sticky top-0 w-full border-b border-primary/10  backdrop-blur-xl">
+      <nav className="py-1 max-w-[400px] md:max-w-[1000px] mt-2 mx-auto shadow-lg shadow-primary/20 rounded-2xl z-50 sticky top-0 w-full border-b border-primary/10  backdrop-blur-xl">
         <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <Link
             href="/"
-            className="flex items-center gap-2 font-bold text-xl text-foreground"
+            className="flex items-center gap-3 group transition-all duration-300"
           >
-            <div className="p-1 bg-primary rounded-md">
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
+            <div className="relative p-2 bg-gradient-to-br from-primary to-primary/70 rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
+              <Sparkles className="h-6 w-6 text-primary-foreground" />
+              <div className="absolute -inset-1 rounded-xl bg-primary/20 blur-md group-hover:bg-primary/30 transition-colors duration-300 -z-10"></div>
             </div>
-            <span>IITBBSphere</span>
-            {/* <Image className="bg-black" src={"/website-logo.png"} alt="logo" width={100} height={100} /> */}
+            <div className="flex flex-col">
+              <span className="font-bold text-xl bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                IITBBSphere
+              </span>
+              <span className="text-xs text-muted-foreground -mt-1">
+                Knowledge Hub
+              </span>
+            </div>
           </Link>
 
           {/* Navigation Links */}
