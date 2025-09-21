@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import React  from "react";
+import React from "react";
 import UserButton from "./UserButton";
 import { generatedAvatarUrl } from "@/lib/avatar";
 import { ModeToggle } from "@/components/ModdleToggler";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, User, Mail, LayoutDashboard, Sparkles } from "lucide-react";
 import MobileNav from "./MobileNav";
+import Image from "next/image";
 
 const Navbar = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="py-1 shadow-2xl shadow-primary/20 rounded-md z-50 sticky top-0 w-full border-b border-primary/10  backdrop-blur-xl">
+      <nav className="py-1 shadow-lg shadow-primary/20 rounded-md z-50 sticky top-0 w-full border-b border-primary/10  backdrop-blur-xl">
         <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <Link
             href="/"
@@ -43,6 +44,7 @@ const Navbar = () => {
               <Sparkles className="h-5 w-5 text-primary-foreground" />
             </div>
             <span>IITBBSphere</span>
+            {/* <Image className="bg-black" src={"/website-logo.png"} alt="logo" width={100} height={100} /> */}
           </Link>
 
           {/* Navigation Links */}

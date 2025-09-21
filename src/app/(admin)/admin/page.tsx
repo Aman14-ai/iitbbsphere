@@ -6,6 +6,12 @@ import { adminEmail } from "../../../../constants";
 import Link from "next/link";
 import NonAdminMsg from "@/modules/admin/ui/components/NonAdminMsg";
 import AdminView from "@/modules/admin/ui/views/AdminView";
+import { Metadata } from "next";
+
+
+export const metadata:Metadata={
+  title:"IITBBSphere | Admin",  
+}
 
 const Page = async () => {
   const session = await auth.api.getSession({
