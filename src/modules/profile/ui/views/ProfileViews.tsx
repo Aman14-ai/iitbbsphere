@@ -6,40 +6,37 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { authClient } from "@/lib/auth-client";
+import { formatDateForDB } from "@/lib/utils";
 import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
 import { ChevronDownIcon } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
 const ProfileViews = () => {
-  const session = authClient.useSession();
-  if (!session) {
-    redirect("/sign-in");
-  }
+  const router = useRouter();
+
   const [value, setValue] = useState<Date | undefined>();
   const [open, setOpen] = useState(false);
 
   const trpc = useTRPC();
   const updateBirthDate = useMutation(
-    trpc.home.updateBirthDate.mutationOptions({
+    trpc.profile.updateBirthDate.mutationOptions({
       onSuccess: () => {
-        redirect("/");
+        router.push("/");
       },
       onError: (error) => {
         toast.error("Something went wrong");
-        console.log("Something went wrong",error);
+        console.log("Something went wrong", error);
       },
     })
   );
 
   const handleSubmit = async () => {
-    if (!value || !session.data?.user.id) return;
+    if (!value) return;
 
-    const formattedDate = value.toISOString().split("T")[0]; // "YYYY-MM-DD"
-    console.log(formattedDate, typeof formattedDate);
+    const formattedDate = formatDateForDB(value);
 
     updateBirthDate.mutate({
       birthDate: formattedDate,
