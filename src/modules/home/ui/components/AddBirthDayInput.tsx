@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 const AddBirthDayInput = () => {
-  const session = authClient.getSession();
+
+  const session = authClient.useSession();
   const router = useRouter();
   const [openDialog, setOpenDialog] = useState(false);
   return (
@@ -15,7 +16,7 @@ const AddBirthDayInput = () => {
       <AddBirthdayDialog openDialog={openDialog} onOpenChange={setOpenDialog} />
       <button
         onClick={() => {
-          if (!session) {
+          if (!session.data?.user) {
             router.push("/sign-in");
           }
           else setOpenDialog(true);
