@@ -50,12 +50,11 @@ const UserButton = ({ name, email, image, onSignOut }: Props) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <Link href="/profile">
-            <DropdownMenuItem className="cursor-pointer px-2 py-1.5 rounded-sm flex items-center gap-2">
-              <User className="h-4 w-4" />
-              <span>Profile</span>
-            </DropdownMenuItem>
-          </Link>
+          <DropdownMenuItem className="cursor-pointer px-2 py-1.5 rounded-sm flex items-center gap-2">
+            <User className="h-4 w-4" />
+            <span>Profile</span>
+          </DropdownMenuItem>
+
           <DropdownMenuItem className="cursor-pointer px-2 py-1.5 rounded-sm flex items-center gap-2">
             <Settings className="h-4 w-4" />
             <span>Settings</span>
