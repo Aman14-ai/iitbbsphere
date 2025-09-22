@@ -6,12 +6,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { db } from "@/db";
-import { user } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
 import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
-import { eq } from "drizzle-orm";
 import { ChevronDownIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
