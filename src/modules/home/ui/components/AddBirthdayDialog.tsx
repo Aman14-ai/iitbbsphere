@@ -70,7 +70,7 @@ const AddBirthdayDialog = ({ openDialog, onOpenChange }: Props) => {
       return;
     }
 
-    const formattedDate = formatDateForDB(value);
+    const formattedDate = value.toISOString().split("T")[0];
     updateBirthDate.mutate({
       birthDate: formattedDate,
     });

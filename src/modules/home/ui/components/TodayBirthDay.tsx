@@ -6,12 +6,14 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, PartyPopper, Cake } from "lucide-react";
+import { generatedAvatarUrl } from "@/lib/avatar";
+import Image from "next/image";
 
 interface BirthdayUser {
   id: string;
   name: string;
   email?: string;
-  image?: string|null;
+  image?: string | null;
 }
 
 const TodayBirthDay = () => {
@@ -19,7 +21,7 @@ const TodayBirthDay = () => {
   const { data, isLoading, isError } = useQuery(
     trpc.home.getAllBirthDay.queryOptions()
   );
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
@@ -67,11 +69,12 @@ const TodayBirthDay = () => {
   };
 
   const currentUser: BirthdayUser = data[currentIndex];
+  console.log(currentUser);
 
   return (
     <div className="w-full max-w-md mx-auto">
       {/* Compact Birthday Badge */}
-      <Card className="h-20 bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 shadow-lg shadow-primary/10 relative overflow-hidden">
+      <Card className="h-18 bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 shadow-lg shadow-primary/10 relative overflow-hidden">
         {/* Animated confetti background */}
         <div className="absolute inset-0 opacity-[0.02]">
           {[...Array(8)].map((_, i) => (
@@ -88,31 +91,35 @@ const TodayBirthDay = () => {
           ))}
         </div>
 
-        <CardContent className="p-3 h-full">
+        <CardContent className="px-3 h-full">
           <div className="flex items-center justify-between h-full">
             {/* Left side - Birthday info */}
             <div className="flex items-center gap-3 flex-1">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-                  {currentUser.image ? (
-                    <img
-                      src={currentUser.image}
-                      alt={currentUser.name}
-                      className="w-full h-full rounded-full object-cover"
-                    />
-                  ) : (
-                    currentUser.name.charAt(0).toUpperCase()
-                  )}
+                <div className="w-12 mt-2 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                  <Image
+                    src={
+                      currentUser.image ??
+                      generatedAvatarUrl({
+                        seed: currentUser.name,
+                        variant: "initials",
+                      })
+                    }
+                    width={28}
+                    height={28}
+                    alt={currentUser.name}
+                    className="w-full h-full rounded-full object-cover"
+                  />
                 </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-400 rounded-full flex items-center justify-center">
-                  <Cake className="w-2 h-2 text-white" />
-                </div>
+                
               </div>
-              
+
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1 mb-1">
                   <PartyPopper className="w-3 h-3 text-primary" />
-                  <span className="text-xs font-medium text-primary">Today&apos;s Birthday</span>
+                  <span className="text-xs font-medium text-primary">
+                    Today&apos;s Birthday
+                  </span>
                 </div>
                 <h4 className="font-semibold text-foreground truncate text-sm">
                   {currentUser.name}
@@ -134,11 +141,11 @@ const TodayBirthDay = () => {
                 >
                   <ChevronLeft className="h-3 w-3" />
                 </Button>
-                
+
                 <div className="text-xs text-muted-foreground font-mono">
                   {currentIndex + 1}/{data.length}
                 </div>
-                
+
                 <Button
                   variant="ghost"
                   size="icon"
@@ -154,9 +161,11 @@ const TodayBirthDay = () => {
           {/* Progress bar for multiple birthdays */}
           {data.length > 1 && (
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary/10">
-              <div 
+              <div
                 className="h-full bg-primary/50 transition-all duration-1000 ease-out"
-                style={{ width: `${((currentIndex + 1) / data.length) * 100}%` }}
+                style={{
+                  width: `${((currentIndex + 1) / data.length) * 100}%`,
+                }}
               />
             </div>
           )}
@@ -175,8 +184,8 @@ const TodayBirthDay = () => {
               }}
               className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? 'bg-primary w-4'
-                  : 'bg-muted-foreground/30'
+                  ? "bg-primary w-4"
+                  : "bg-muted-foreground/30"
               }`}
             />
           ))}
