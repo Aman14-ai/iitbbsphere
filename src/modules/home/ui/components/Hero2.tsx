@@ -1,24 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import AddBirthDayInput from "./AddBirthDayInput";
+import TodayBirthDay from "./TodayBirthDay";
 
-const Hero2 = () => {
+interface Props {
+  isBirthDate?: boolean;
+}
+
+const Hero2 = ({ isBirthDate }: Props) => {
   return (
     <div className="container  px-4 py-16 mx-auto max-w-7xl">
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-        <div className="w-full md:w-5/12 flex justify-center md:justify-start">
+        <div className="w-full md:w-5/12 flex gap-9 flex-col justify-center md:justify-start">
           <img
             src={"./iitlogo.png"}
             alt="IIT Bhubaneswar Campus"
             className="object-cover"
           />
+          <TodayBirthDay />
         </div>
 
         <div className="flex flex-col gap-6">
-          {/* <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
-            <span className="mr-2">✨</span> Introducing Our New Platform
-          </div> */}
+          {!isBirthDate && (
+            <div className="-mt-5">
+              <AddBirthDayInput />
+            </div>
+          )}
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
             Solve your problems of <span className="text-primary">study</span>
@@ -26,9 +34,8 @@ const Hero2 = () => {
 
           <p className="text-md tracking-tight md:tracking-normal md:text-lg text-muted-foreground max-w-lg">
             A friendly web portal where IITBBS students from all departments can
-            access past exam papers, notes, and study guides.
-            This site connects juniors to share knowledge and prepare
-            together.
+            access past exam papers, notes, and study guides. This site connects
+            juniors to share knowledge and prepare together.
           </p>
 
           <div className="flex flex-wrap gap-4 mt-4">

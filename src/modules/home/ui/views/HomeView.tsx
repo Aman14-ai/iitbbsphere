@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
 import Navbar from "../components/Navbar";
-import HeroSection from "../components/Hero";
 import Hero2 from "../components/Hero2";
 
-const HomeView = () => {
+interface Props {
+  isBirthDate?: boolean;
+}
+
+const HomeView = ({isBirthDate}:Props) => {
   return (
     <div>
       <Navbar />
-      {/* <HeroSection /> */}
-      <Hero2 />
+      <Hero2 isBirthDate={isBirthDate} />
     </div>
   );
 };

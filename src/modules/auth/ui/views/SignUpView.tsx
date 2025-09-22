@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
-import { OctagonAlertIcon } from "lucide-react";
+import {  OctagonAlertIcon } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -29,6 +29,7 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+
 const formSchema = z.object({
   name: z
     .string()
@@ -41,7 +42,6 @@ const formSchema = z.object({
 });
 
 const SignupView = () => {
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,9 +54,7 @@ const SignupView = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  
   const handleGoogle = async () => {
-    
     setLoading(true);
     try {
       await authClient.signIn.social(
@@ -67,7 +65,7 @@ const SignupView = () => {
         {
           onError: (error) => {
             console.log("Signup error");
-            console.log(error)
+            console.log(error);
             setError(error.error.message);
           },
           onSuccess: () => {
@@ -94,14 +92,16 @@ const SignupView = () => {
           name,
           email,
           password,
+          
         },
         {
           onError: (error) => {
             console.log("Signup error");
             setError(error.error.message);
           },
-          onSuccess: () => {
+          onSuccess: async () => {
             console.log("Signup success");
+
             router.push("/");
           },
         }
@@ -202,6 +202,7 @@ const SignupView = () => {
                   </FormItem>
                 )}
               />
+             
 
               {/* Error alert */}
               {!!error && (

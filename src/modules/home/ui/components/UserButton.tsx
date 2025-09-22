@@ -9,6 +9,7 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
 import React from "react";
 import { LogOut, User, Settings, HelpCircle } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
   name: string;
@@ -49,10 +50,12 @@ const UserButton = ({ name, email, image, onSignOut }: Props) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer px-2 py-1.5 rounded-sm flex items-center gap-2">
-            <User className="h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
+          <Link href="/profile">
+            <DropdownMenuItem className="cursor-pointer px-2 py-1.5 rounded-sm flex items-center gap-2">
+              <User className="h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem className="cursor-pointer px-2 py-1.5 rounded-sm flex items-center gap-2">
             <Settings className="h-4 w-4" />
             <span>Settings</span>
