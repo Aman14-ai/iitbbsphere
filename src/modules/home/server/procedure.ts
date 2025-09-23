@@ -13,6 +13,7 @@ export const homeRouter = createTRPCRouter({
     const today = new Date();
     const month = today.getMonth() + 1;
     const day = today.getDate();
+    console.log("today : ",today)
 
     const todaysBirthDay = await db
       .select()
@@ -24,7 +25,7 @@ export const homeRouter = createTRPCRouter({
     AND EXTRACT(DAY FROM birth_date) = ${day}
   `
       );
-    console.log(month, day);
+    //console.log(month, day);
     console.log("today birthday from procedure , ", todaysBirthDay);
 
     return todaysBirthDay;

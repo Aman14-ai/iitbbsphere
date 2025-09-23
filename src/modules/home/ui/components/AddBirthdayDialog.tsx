@@ -71,7 +71,8 @@ const AddBirthdayDialog = ({ openDialog, onOpenChange }: Props) => {
     }
 
     const formattedDate = formatDateForDB(value);
-    console.log(formattedDate)
+    console.log('formattedDate: ', formattedDate)
+    console.log("today: ", new Date())
     updateBirthDate.mutate({
       birthDate: formattedDate,
     });
