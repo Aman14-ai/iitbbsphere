@@ -72,6 +72,8 @@ const AddBirthdayDialog = ({ openDialog, onOpenChange }: Props) => {
 
     const formattedDate = formatDateForDB(value);
     console.log('formattedDate: ', formattedDate)
+    const today = new Date();
+    today.toLocaleDateString();
     console.log("today: ", new Date())
     updateBirthDate.mutate({
       birthDate: formattedDate,
