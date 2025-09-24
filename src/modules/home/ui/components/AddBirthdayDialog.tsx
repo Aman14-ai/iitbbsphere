@@ -10,7 +10,11 @@ import {
 } from "@/components/ui/popover";
 import { formatDateForDB } from "@/lib/utils";
 import { useTRPC } from "@/trpc/client";
-import { useMutation } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { ChevronDownIcon, CalendarIcon, Cake, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -22,7 +26,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { authClient } from "@/lib/auth-client";
 
 interface Props {
   openDialog: boolean;
@@ -35,9 +38,13 @@ const AddBirthdayDialog = ({ openDialog, onOpenChange }: Props) => {
   const [open, setOpen] = useState(false);
 
   const trpc = useTRPC();
+  const queryClient = useQueryClient();
   const updateBirthDate = useMutation(
     trpc.home.updateBirthDate.mutationOptions({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          trpc.home.getAllBirthDay.queryOptions()
+        );
         toast.success("🎉 Birthday added successfully!");
         setTimeout(() => {
           router.push("/");
@@ -69,12 +76,12 @@ const AddBirthdayDialog = ({ openDialog, onOpenChange }: Props) => {
       toast.error("You must be at least 13 years old");
       return;
     }
-
+    console.log(value);
     const formattedDate = formatDateForDB(value);
-    console.log('formattedDate: ', formattedDate)
+    console.log("formattedDate: ", formattedDate);
     const today = new Date();
     today.toLocaleDateString();
-    console.log("today: ", new Date())
+    console.log("today: ", new Date());
     updateBirthDate.mutate({
       birthDate: formattedDate,
     });

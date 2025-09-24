@@ -21,7 +21,6 @@ const TodayBirthDay = () => {
   const { data, isLoading, isError } = useQuery(
     trpc.home.getAllBirthDay.queryOptions()
   );
-  console.log(data);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
@@ -69,7 +68,6 @@ const TodayBirthDay = () => {
   };
 
   const currentUser: BirthdayUser = data[currentIndex];
-  console.log(currentUser);
 
   return (
     <div className="w-full max-w-md mx-auto">

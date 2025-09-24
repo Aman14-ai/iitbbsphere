@@ -18,10 +18,6 @@ export const homeRouter = createTRPCRouter({
     const month = istDate.getMonth() + 1;
     const day = istDate.getDate();
 
-    console.log("Server UTC time:", today);
-    console.log("IST time:", istDate);
-    console.log("Checking for month/day:", month, day);
-
     const todaysBirthDay = await db
       .select()
       .from(user)
@@ -33,7 +29,6 @@ export const homeRouter = createTRPCRouter({
         `
       );
 
-    console.log("Today's birthdays:", todaysBirthDay);
     return todaysBirthDay;
   }),
 

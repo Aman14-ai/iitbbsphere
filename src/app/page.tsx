@@ -41,7 +41,6 @@ export default async function Home() {
       .where(eq(user.id, session.user.id));
     currentUserBirthDate = !!currentUser.birthDate;
   }
-  console.log(currentUserBirthDate);
 
   return (
     <div className="bg-background  h-screen">
