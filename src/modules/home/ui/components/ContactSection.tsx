@@ -77,7 +77,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className=" py-20 bg-gradient-to-b from-accent/5 to-background overflow-hidden"
+      className=" py-25 bg-gradient-to-b from-accent/5 to-background overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -92,11 +92,14 @@ const ContactSection = () => {
             <MessageCircle className="w-5 h-5" />
             Get In Touch
           </div>
-          <h2 className="text-5xl font-extrabold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent mb-6">
-            Contact Us
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-4">
+            Contact us
           </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Simple steps to help you get started in finding all contents.
+          </p>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Have questions about sports equipment reservations? We&apos;re here
+            Have questions about abything? We&apos;re here
             to help and would love to hear from you.
           </p>
         </div>

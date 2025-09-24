@@ -30,7 +30,7 @@ const HowToUse = () => {
   ];
 
   return (
-    <section id="about" className="relative py-20 bg-gradient-to-b from-background to-accent/5 overflow-hidden">
+    <section id="about" className="relative  bg-gradient-to-b from-background to-accent/5 overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-20 h-20 bg-primary rounded-full blur-xl"></div>
