@@ -74,41 +74,10 @@ const ContactSection = () => {
     });
   };
 
-  const contactMethods = [
-    {
-      icon: Mail,
-      title: "Email Us",
-      description: "Send us an email anytime",
-      value: "your-email@iitbbsphere.com",
-      link: "mailto:amansachi2005@gmail.com",
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      description: "Mon to Fri from 9am to 6pm",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
-    },
-    {
-      icon: MapPin,
-      title: "Visit Us",
-      description: "Come say hello at our office",
-      value: "IIT Bhubaneswar Campus",
-      link: "#",
-    },
-    {
-      icon: Clock,
-      title: "Response Time",
-      description: "We typically reply within",
-      value: "24 hours",
-      link: "#",
-    },
-  ];
-
   return (
     <section
       id="contact"
-      className="relative py-20 bg-gradient-to-b from-accent/5 to-background overflow-hidden"
+      className=" py-20 bg-gradient-to-b from-accent/5 to-background overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -134,30 +103,71 @@ const ContactSection = () => {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Methods */}
-          <section className="space-y-8 hidden md:grid">
-            {contactMethods.map(
-              ({ icon: Icon, title, description, value, link }) => (
-                <a
-                  key={title}
-                  href={link}
-                  className="flex items-center gap-4 p-5 border border-border rounded-xl hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="w-14 h-14 flex items-center justify-center rounded-lg bg-primary/20 text-primary">
-                    <Icon className="w-7 h-7" />
+          {/* Animated Illustration */}
+          <div className="space-y-8 hidden md:block">
+            <div className="relative p-8 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl border border-primary/20 overflow-hidden">
+              {/* Animated Background Elements */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-4 left-4 w-20 h-20 bg-primary rounded-full animate-pulse"></div>
+                <div className="absolute bottom-4 right-4 w-16 h-16 bg-primary rounded-full animate-bounce"></div>
+              </div>
+
+              <div className="relative z-10 text-center">
+                {/* Animated Mail Icon */}
+                <div className="relative inline-block mb-6">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-float">
+                    <Mail className="w-10 h-10 text-primary-foreground" />
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground text-lg">
-                      {title}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {description}
-                    </p>
-                    <p className="mt-1 font-medium text-primary">{value}</p>
-                  </div>
-                </a>
-              )
-            )}
-          </section>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full animate-pulse border-2 border-background"></div>
+                </div>
+
+                <h3 className="text-2xl font-semibold text-foreground mb-3">
+                  Let&apos;s Start a Conversation
+                </h3>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  Drop us a message and we&apos;ll get back to you faster, Our
+                  team is excited to help you with your study needs.
+                </p>
+
+                {/* Animated Dots */}
+                <div className="flex justify-center space-x-2 mb-4">
+                  {[1, 2, 3].map((dot) => (
+                    <div
+                      key={dot}
+                      className="w-2 h-2 bg-primary rounded-full animate-bounce"
+                      style={{ animationDelay: `${dot * 0.2}s` }}
+                    ></div>
+                  ))}
+                </div>
+
+                {/* Quick Response Indicator */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  Do help Your friends for any kind of update
+                </div>
+              </div>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-card rounded-lg border border-border">
+                <div className="text-2xl font-bold text-primary mb-1">24/7</div>
+                <div className="text-xs text-muted-foreground">Support</div>
+              </div>
+              <div className="text-center p-4 bg-card rounded-lg border border-border">
+                <div className="text-2xl font-bold text-primary mb-1">1h</div>
+                <div className="text-xs text-muted-foreground">
+                  Avg Response
+                </div>
+              </div>
+              <div className="text-center p-4 bg-card rounded-lg border border-border">
+                <div className="text-2xl font-bold text-primary mb-1">100%</div>
+                <div className="text-xs text-muted-foreground">
+                  Satisfaction
+                </div>
+              </div>
+            </div>
+          </div>
 
           {/* Contact Form */}
           <Card className="border-border shadow-lg">

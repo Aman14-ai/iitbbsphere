@@ -18,8 +18,8 @@ const Navbar = () => {
 
   const navItems = [
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
-    { href: "#about", label: "About", icon: <User className="h-4 w-4" /> },
-    { href: "/contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
+    { href: "/#about", label: "About", icon: <User className="h-4 w-4" /> },
+    { href: "/#contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
     ...(session
       ? [
           {
@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="py-1 max-w-[400px] md:max-w-[1000px] mt-2 mx-auto shadow-lg shadow-primary/20 rounded-2xl z-50 sticky top-0 w-full border-b border-primary/10  backdrop-blur-xl">
+      <nav className="py-1 max-w-[400px] md:max-w-[1000px] mt-2 mx-auto shadow-lg shadow-primary/20 rounded-2xl z-50 fixed left-1/2 right-1/2 -translate-x-1/2 bg-muted top-0 w-full border-b border-primary/10 ">
         <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
           <Link
             href="/"

@@ -10,7 +10,7 @@ interface Props {
 
 const Hero2 = ({ isBirthDate }: Props) => {
   return (
-    <div className="container  px-4 py-16 mx-auto max-w-7xl">
+    <div className="container  px-4 py-25 mx-auto max-w-7xl">
       <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <div className="w-full md:w-5/12 flex gap-9 flex-col justify-center md:justify-start">
           <img
@@ -39,12 +39,16 @@ const Hero2 = ({ isBirthDate }: Props) => {
           </p>
 
           <div className="flex flex-wrap gap-4 mt-4">
-            <button className="px-6 py-3 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors">
-              Get Started Free
-            </button>
-            <button className="px-6 py-3 border border-border bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors">
-              <Link href={"/premium"}>Get Premium</Link>
-            </button>
+            <Link href={"/dashboard"}>
+              <button className="px-6 py-3 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors">
+                Get Started Free
+              </button>
+            </Link>
+            <Link href={"/premium"}>
+              <button className="px-6 py-3 border border-border bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors">
+                Get Premium
+              </button>
+            </Link>
           </div>
 
           <div className="flex items-center gap-4 mt-6 text-sm text-muted-foreground">
@@ -58,7 +62,7 @@ const Hero2 = ({ isBirthDate }: Props) => {
                   />
                 ))}
               </div>
-              <span>please join</span>
+              <span>join</span>
             </div>
             <div className="h-4 w-px bg-border"></div>
             <div className="flex items-center">

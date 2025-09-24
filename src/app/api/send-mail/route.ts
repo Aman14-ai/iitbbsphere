@@ -79,7 +79,7 @@ export async function POST(req: Request) {
                   <tr>
                     <td style="font-size:13px; color:#6b7280;">
                       <strong>Received:</strong> ${new Date().toLocaleString()}<br>
-                      <span>Powered by CampusHub • <a href="mailto:${
+                      <span>Powered by iitbbsphere • <a href="mailto:${
                         process.env.EMAIL_USER || "amancode2005@gmail.com"
                       }" style="color:#0b69ff; text-decoration:none;">Contact</a></span>
                     </td>
