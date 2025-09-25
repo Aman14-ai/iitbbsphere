@@ -44,23 +44,23 @@ const HowToUse = () => {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
-            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
+            <Sparkles className="w-3 text-sm md:text-md h-3 sm:w-4 sm:h-4" />
             Getting Started
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3 sm:mb-4">
             How It Works
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl sm:max-w-2xl mx-auto">
+          <p className="text-sm  md:text-md text-muted-foreground max-w-xl sm:max-w-2xl mx-auto">
             Simple steps to help you get started in finding all contents.
           </p>
         </div>
 
         {/* Steps Grid */}
-        <div className="grid gap-6 sm:gap-8 md:grid-cols-3">
+        <div className="grid gap-6 sm:gap-6 md:grid-cols-3">
           {steps.map((step, index) => (
             <div
               key={index}
-              className="group relative p-6 sm:p-8 bg-card/50 backdrop-blur-sm border border-border rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+              className="group relative p-3 sm:p-4 bg-card/50 backdrop-blur-sm border border-border rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
             >
               {/* Step Number */}
               <div className="absolute -top-3 -left-3 w-6 h-6 sm:w-8 sm:h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs sm:text-sm font-bold shadow-lg">
@@ -73,10 +73,10 @@ const HowToUse = () => {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg sm:text-xl font-semibold text-foreground text-center mb-2 sm:mb-3">
+              <h3 className="text-md sm:text-lg font-semibold text-foreground text-center mb-2 sm:mb-3">
                 {step.title}
               </h3>
-              <p className="text-xs sm:text-sm md:text-base text-muted-foreground text-center mb-4 sm:mb-6">
+              <p className="text-xs sm:text-sm md:text-md text-muted-foreground text-center mb-4 sm:mb-6">
                 {step.description}
               </p>
 

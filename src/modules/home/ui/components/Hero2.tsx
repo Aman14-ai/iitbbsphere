@@ -31,11 +31,11 @@ const Hero2 = ({ isBirthDate }: Props) => {
             </div>
           )}
 
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl  font-bold text-foreground leading-tight">
             Solve your problems of <span className="text-primary">study</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-lg">
+          <p className="text-sm sm:text-base md:text-md text-muted-foreground max-w-lg">
             A friendly web portal where IITBBS students from all departments can
             access past exam papers, notes, and study guides. This site connects
             juniors to share knowledge and prepare together.
@@ -43,12 +43,12 @@ const Hero2 = ({ isBirthDate }: Props) => {
 
           <div className="flex flex-wrap gap-3 mt-3">
             <Link href={"/dashboard"}>
-              <button className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors text-sm sm:text-base">
+              <button className="px-2 py-2 sm:px-3 sm:py-2 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors text-sm sm:text-md">
                 Get Started Free
               </button>
             </Link>
             <Link href={"/premium"}>
-              <button className="px-4 py-2 sm:px-6 sm:py-3 border border-border bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors text-sm sm:text-base">
+              <button className="px-2 py-2 sm:px-3 sm:py-2 border border-border bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors text-sm sm:text-md">
                 Get Premium
               </button>
             </Link>
@@ -65,7 +65,7 @@ const Hero2 = ({ isBirthDate }: Props) => {
                   />
                 ))}
               </div>
-              <span>join</span>
+              <span className="text-sm">join</span>
             </div>
             <div className="h-4 w-px bg-border"></div>
             <div className="flex items-center">
@@ -76,7 +76,7 @@ const Hero2 = ({ isBirthDate }: Props) => {
               >
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <span>rating</span>
+              <span className="text-sm">rating</span>
             </div>
             <Button className="text-xs" variant={"link"} size={"sm"}>
               <Link href={"/admin"}>

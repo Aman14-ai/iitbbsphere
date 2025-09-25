@@ -17,6 +17,7 @@ const page = async ({ params }: Props) => {
     redirect("/sign-in");
   }
 
+
   const { userId } = await params;
   return <WishesView userId={userId} />;
 };

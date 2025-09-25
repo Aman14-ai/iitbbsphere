@@ -62,7 +62,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="py-16 sm:py-20 md:py-25 bg-gradient-to-b from-accent/5 to-background overflow-hidden"
+      className=" bg-gradient-to-b from-accent/5 to-background overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
@@ -73,17 +73,17 @@ const ContactSection = () => {
       <div className="container px-3 sm:px-4 mx-auto max-w-7xl relative z-10 scale-90 sm:scale-95 md:scale-100">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-primary/20 text-primary text-sm sm:text-base font-semibold mb-4 sm:mb-5">
-            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-primary/20 text-primary text-sm sm:text-md font-semibold mb-4 sm:mb-5">
+            <MessageCircle className="w-4 h-4" />
             Get In Touch
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3 sm:mb-4">
             Contact us
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl sm:max-w-2xl mx-auto mb-2">
+          <p className="text-sm  md:text-md text-muted-foreground max-w-xl sm:max-w-2xl mx-auto mb-2">
             Simple steps to help you get started in finding all contents.
           </p>
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm  md:text-md text-muted-foreground leading-relaxed">
             Have questions about anything? We&apos;re here to help and would love
             to hear from you.
           </p>
@@ -106,10 +106,10 @@ const ContactSection = () => {
                   <div className="absolute -top-2 -right-2 w-4 h-4 sm:w-6 sm:h-6 bg-green-400 rounded-full animate-pulse border-2 border-background"></div>
                 </div>
 
-                <h3 className="text-lg sm:text-2xl font-semibold text-foreground mb-2 sm:mb-3">
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 sm:mb-3">
                   Let&apos;s Start a Conversation
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 max-w-md mx-auto">
+                <p className="text-sm sm:text-md text-muted-foreground mb-4 sm:mb-6 max-w-md mx-auto">
                   Drop us a message and we&apos;ll get back to you faster. Our team
                   is excited to help you with your study needs.
                 </p>
@@ -124,19 +124,18 @@ const ContactSection = () => {
                   ))}
                 </div>
 
-                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-medium">
+                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 text-primary rounded-full  text-sm font-medium">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  Do help your friends for any kind of update
+                  <span className="text-sm">Do help your friends for any kind of update</span>
                 </div>
               </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
                 { label: "Support", value: "24/7" },
                 { label: "Avg Response", value: "1h" },
-                { label: "Satisfaction", value: "100%" },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -155,7 +154,7 @@ const ContactSection = () => {
 
           {/* Contact Form */}
           <Card className="border-border shadow-lg">
-            <CardContent className="p-6 sm:p-8 md:p-10">
+            <CardContent className="p-7">
               <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center">
                   <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
