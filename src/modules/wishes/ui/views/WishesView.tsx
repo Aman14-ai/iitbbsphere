@@ -1,7 +1,12 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { useTRPC } from "@/trpc/client";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,11 +35,12 @@ const WishesView = ({ userId }: Props) => {
   const currentUser = session.data?.user;
 
   // Get wishes for the birthday user
-  const { data: wishes, refetch: refetchWishes } = useQuery(
+  // const { data: wishes, refetch: refetchWishes } = useQuery(
+  //   trpc.wishes.getWishesForUser.queryOptions({ toUserId: userId })
+  // );
+  const {data:wishes , refetch:refetchWishes} = useSuspenseQuery(
     trpc.wishes.getWishesForUser.queryOptions({ toUserId: userId })
   );
-
-  // Mutation to add a wish
   const addWishMutation = useMutation(
     trpc.wishes.addWish.mutationOptions({
       onSuccess: () => {
@@ -176,7 +182,8 @@ const WishesView = ({ userId }: Props) => {
                             }
                           />
                           <AvatarFallback className="bg-primary/10 text-primary text-sm">
-                            {wish.fromUser?.name?.charAt(0).toUpperCase() || "U"}
+                            {wish.fromUser?.name?.charAt(0).toUpperCase() ||
+                              "U"}
                           </AvatarFallback>
                         </Avatar>
 
@@ -246,9 +253,7 @@ const WishesView = ({ userId }: Props) => {
                       </span>
                       <Button
                         onClick={handleSendWish}
-                        disabled={
-                          addWishMutation.isPending || !message.trim()
-                        }
+                        disabled={addWishMutation.isPending || !message.trim()}
                         size="sm"
                         className="h-6 text-xs px-2 gap-1 bg-gradient-to-r from-primary to-primary/80"
                       >
