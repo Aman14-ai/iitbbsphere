@@ -38,6 +38,7 @@ const WishesView = ({ userId }: Props) => {
   // const { data: wishes, refetch: refetchWishes } = useQuery(
   //   trpc.wishes.getWishesForUser.queryOptions({ toUserId: userId })
   // );
+  const queryClient = useQueryClient();
   const {data:wishes , refetch:refetchWishes} = useSuspenseQuery(
     trpc.wishes.getWishesForUser.queryOptions({ toUserId: userId })
   );
@@ -169,7 +170,7 @@ const WishesView = ({ userId }: Props) => {
                     key={wish.id}
                     className="border-border hover:border-primary/30 transition-colors"
                   >
-                    <CardContent className="px-3 py-2">
+                    <CardContent className="px-3">
                       <div className="flex gap-3">
                         <Avatar className="w-9 h-9 flex-shrink-0">
                           <AvatarImage
@@ -190,10 +191,10 @@ const WishesView = ({ userId }: Props) => {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="font-medium text-sm text-foreground truncate">
-                              {wish.fromUser?.name || "Anonymous"}
+                              {wish.fromUser?.name}
                             </span>
                           </div>
-                          <p className="text-sm text-muted-foreground whitespace-pre-wrap break-words leading-tight">
+                          <p className="text-xs text-muted-foreground whitespace-pre-wrap break-words leading-tight">
                             {wish.message}
                           </p>
                         </div>

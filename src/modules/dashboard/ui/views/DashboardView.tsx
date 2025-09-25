@@ -145,8 +145,8 @@ const DashboardView = () => {
 
                   {/* CTA Button */}
                   <Button
-                    variant="outline"
-                    className="w-full py-1.5 sm:py-2 text-xs sm:text-sm border-border bg-transparent hover:bg-primary/5 hover:border-primary/30 text-foreground flex items-center justify-center gap-1 transition-colors"
+                    variant="default"
+                    className="w-full py-1.5 sm:py-2 text-xs sm:text-sm border-border  hover:border-primary/30 text-white flex items-center justify-center gap-1 transition-colors"
                   >
                     <span>Explore Branch</span>
                     <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
