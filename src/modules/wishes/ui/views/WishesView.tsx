@@ -168,7 +168,7 @@ const WishesView = ({ userId }: Props) => {
                 {wishes.map((wish) => (
                   <Card
                     key={wish.id}
-                    className="border-border hover:border-primary/30 transition-colors"
+                    className="border-border max-w-md hover:border-primary/30 transition-colors"
                   >
                     <CardContent className="px-3">
                       <div className="flex gap-3">
