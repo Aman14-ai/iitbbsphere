@@ -10,8 +10,10 @@ interface Props {
 
 const Hero2 = ({ isBirthDate }: Props) => {
   return (
-    <div className="container  px-4 py-25 mx-auto max-w-7xl">
-      <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+    <div className="container px-3 pt-25 mx-auto max-w-7xl">
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 
+                      scale-90 sm:scale-95 md:scale-100">
+        {/* Left Section */}
         <div className="w-full md:w-5/12 flex gap-9 flex-col justify-center md:justify-start">
           <img
             src={"./iitlogo.png"}
@@ -21,43 +23,44 @@ const Hero2 = ({ isBirthDate }: Props) => {
           <TodayBirthDay />
         </div>
 
-        <div className="flex flex-col gap-6">
+        {/* Right Section */}
+        <div className="flex flex-col gap-5">
           {!isBirthDate && (
-            <div className="-mt-5">
+            <div className="-mt-4">
               <AddBirthDayInput />
             </div>
           )}
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
             Solve your problems of <span className="text-primary">study</span>
           </h1>
 
-          <p className="text-md tracking-tight md:tracking-normal md:text-lg text-muted-foreground max-w-lg">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-lg">
             A friendly web portal where IITBBS students from all departments can
             access past exam papers, notes, and study guides. This site connects
             juniors to share knowledge and prepare together.
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-4">
+          <div className="flex flex-wrap gap-3 mt-3">
             <Link href={"/dashboard"}>
-              <button className="px-6 py-3 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors">
+              <button className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors text-sm sm:text-base">
                 Get Started Free
               </button>
             </Link>
             <Link href={"/premium"}>
-              <button className="px-6 py-3 border border-border bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors">
+              <button className="px-4 py-2 sm:px-6 sm:py-3 border border-border bg-background text-foreground font-medium rounded-md hover:bg-accent transition-colors text-sm sm:text-base">
                 Get Premium
               </button>
             </Link>
           </div>
 
-          <div className="flex items-center gap-4 mt-6 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 mt-5 text-xs sm:text-sm text-muted-foreground">
             <div className="flex items-center">
               <div className="flex -space-x-2 mr-2">
                 {[1, 2, 3].map((item) => (
                   <div
                     key={item}
-                    className="w-8 h-8 rounded-full bg-primary border-2 border-background"
+                    className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-primary border-2 border-background"
                     style={{ opacity: 1 - item * 0.2 }}
                   />
                 ))}
@@ -67,7 +70,7 @@ const Hero2 = ({ isBirthDate }: Props) => {
             <div className="h-4 w-px bg-border"></div>
             <div className="flex items-center">
               <svg
-                className="w-4 h-4 mr-1 text-yellow-400"
+                className="w-3 h-3 sm:w-4 sm:h-4 mr-1 text-yellow-400"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
