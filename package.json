@@ -2,6 +2,7 @@
   "name": "civil-sphere",
   "version": "0.1.0",
   "private": true,
+  "type":"module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -35,6 +36,7 @@
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "form": "^0.2.5",
+    "googleapis": "^160.0.0",
     "lucide-react": "^0.544.0",
     "nanoid": "^5.1.6",
     "next": "15.5.3",

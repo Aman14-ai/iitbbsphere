@@ -7,6 +7,40 @@ export const adminEmail = [
 
 export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']
 
+
+export const branchInfo: { [key: string]: { name: string; description: string; color: string } } = {
+  civil: {
+    name: "Civil Engineering",
+    description: "Structural design, construction management, and infrastructure development",
+    color: "from-blue-500 to-blue-600"
+  },
+  "computer-science": {
+    name: "Computer Science",
+    description: "Algorithms, software development, AI, and computer systems",
+    color: "from-purple-500 to-purple-600"
+  },
+  "electronics-communication": {
+    name: "Electronics and Communication",
+    description: "Electronics, communication systems, and signal processing",
+    color: "from-green-500 to-green-600"
+  },
+  electrical: {
+    name: "Electrical Engineering",
+    description: "Power systems, electrical machines, and control systems",
+    color: "from-yellow-500 to-yellow-600"
+  },
+  mechanical: {
+    name: "Mechanical Engineering",
+    description: "Thermodynamics, manufacturing, and mechanical design",
+    color: "from-red-500 to-red-600"
+  },
+  metallurgical: {
+    name: "Metallurgical Engineering",
+    description: "Materials science, metallurgy, and material processing",
+    color: "from-indigo-500 to-indigo-600"
+  }
+};
+
 export const branches = [
     {
       name: "Civil Engineering",
