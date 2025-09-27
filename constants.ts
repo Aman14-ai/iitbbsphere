@@ -5,6 +5,8 @@ export const adminEmail = [
   "aman@iitbbs.ac.in"
 ];
 
+export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']
+
 export const branches = [
     {
       name: "Civil Engineering",

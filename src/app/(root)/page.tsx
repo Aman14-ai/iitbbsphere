@@ -13,6 +13,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { toast } from "sonner";
+import { AllowedEmail } from "../../../constants";
 
 export default async function Home() {
   const session = await auth.api.getSession({
@@ -30,7 +31,10 @@ export default async function Home() {
   //     .set({ emailVerified: true })
   //     .where(eq(user.id, session.user.id));
   // }
-  if (session && !session.user.email.endsWith("@iitbbs.ac.in")) {
+
+
+
+  if ((session && !session.user.email.endsWith("@iitbbs.ac.in")) || session && AllowedEmail.includes(session?.user.email)) {
     redirect("/sign-in?error=use your ittbbs mail id");
   }
   let currentUserBirthDate;
