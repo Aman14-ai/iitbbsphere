@@ -88,8 +88,13 @@ const Navbar = () => {
             {session ? (
               <UserButton
                 onSignOut={() => {
-                  authClient.signOut();
-                  window.location.reload();
+                  authClient.signOut({
+                    fetchOptions: {
+                      onSuccess: () => {
+                        router.push("/");
+                      },
+                    },
+                  });
                 }}
                 name={session.user.name}
                 email={session.user.email}
