@@ -81,7 +81,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
         const res = await fetch("/api/drive", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ folderId: "1RaYQ5WgRPZK1Vz6TCJob81CilLIRt8Wa" }),
+          body: JSON.stringify({ folderId: rowDataFromcontentTable.folderId }),
         });
         const data = await res.json();
         setFiles(data);
