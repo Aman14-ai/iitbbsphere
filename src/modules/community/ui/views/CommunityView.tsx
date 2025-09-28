@@ -281,7 +281,7 @@ const CommunityView = () => {
                     </div>
 
                     {/* Message Text */}
-                    <div className="bg-white dark:bg-input border border-gray-200 dark:border-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
+                    <div className="bg-white dark:bg-input border border-gray-200 dark:border-gray-700 rounded-2xl rounded-tl-none px-4 py-1.5 shadow-sm">
                       <p className="text-foreground break-words whitespace-pre-wrap text-sm leading-relaxed">
                         {msg.message}
                       </p>

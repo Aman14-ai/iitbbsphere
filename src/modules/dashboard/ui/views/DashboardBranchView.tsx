@@ -54,33 +54,33 @@ const DashboardBranchView = ({ branch }: Props) => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+          <div className="inline-flex text-xs md:text-md items-center gap-2 px-4 py-1 rounded-full bg-primary/10 text-primary  font-medium mb-3">
             <GraduationCap className="w-4 h-4" />
             {branchData.name}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3">
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-2">
             Choose Your Semester
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto md:text-md text-sm">
             Select your semester to access study materials, resources, and
             connect with classmates
           </p>
         </div>
 
         {/* Branch Info Card */}
-        <Card className="mb-8 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
-          <CardContent className="px-6 py-3">
+        <Card className="mb-6 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
+          <CardContent className="px-4 md:px-6 py-3">
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div
-                className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${branchData.color} flex items-center justify-center`}
+                className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-r ${branchData.color} flex items-center justify-center`}
               >
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h2 className="text-2xl font-bold text-foreground mb-2">
+                <h2 className="text-lg md:text-xl font-bold text-foreground mb-2">
                   {branchData.name}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground md:text-md text-sm">
                   {branchData.description}
                 </p>
               </div>
@@ -92,9 +92,9 @@ const DashboardBranchView = ({ branch }: Props) => {
         </Card>
 
         <div className="flex justify-center">
-          <div className="max-w-sm my-5   ">
+          <div className="max-w-sm mb-5">
             <Input
-              className="bg-input"
+              className="bg-input placeholder:text-sm"
               value={searchedInput}
               onChange={(e) => setSearchedInput(e.target.value)}
               type="text"
@@ -110,34 +110,34 @@ const DashboardBranchView = ({ branch }: Props) => {
             return (
               <Link key={semester} href={`/dashboard/${branch}/${semester}`}>
                 <Card className="group h-full border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
-                  <CardContent className="p-6">
+                  <CardContent className="px-3 md:p-5">
                     {/* Semester Number */}
                     <div className="text-center mb-4">
-                      <div className="w-12 h-12 mx-auto bg-gradient-to-r from-primary to-primary/70 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2">
+                      <div className="w-10 h-10 mx-auto bg-gradient-to-r from-primary to-primary/70 rounded-full flex items-center justify-center text-white font-bold text-lg mb-2">
                         {semester}
                       </div>
-                      <h3 className="text-lg font-semibold text-foreground">
+                      <h3 className="text-md md:text-lg font-semibold text-foreground">
                         Semester {semester}
                       </h3>
                     </div>
 
                     {/* Stats */}
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center justify-between text-xs md:text-sm">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <BookOpen className="w-3 h-3" />
                           Subjects:
                         </span>
                         <span className="font-medium">{stats.subjects}</span>
                       </div>
-                      <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center justify-between text-xs md:text-sm">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
                           Materials:
                         </span>
                         <span className="font-medium">{stats.materials}+</span>
                       </div>
-                      <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center justify-between text-xs md:text-sm">
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Users className="w-3 h-3" />
                           Students:
@@ -149,9 +149,9 @@ const DashboardBranchView = ({ branch }: Props) => {
                     {/* CTA Button */}
                     <Button
                       variant="outline"
-                      className="w-full group/btn border-border hover:border-primary hover:bg-primary/5"
+                      className="w-full text-sm group/btn border-border hover:border-primary hover:bg-primary/5"
                     >
-                      <span>View Subjects</span>
+                      <span className="text-sm">View Subjects</span>
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </Button>
                   </CardContent>
@@ -168,16 +168,16 @@ const DashboardBranchView = ({ branch }: Props) => {
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 mb-3">
               <Users className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-2">
+            <h3 className="text-md md:text-lg font-bold text-foreground mb-2">
               {branch} Community: Updates & Help
             </h3>
-            <p className="text-muted-foreground text-base mb-3">
+            <p className="text-muted-foreground text-sm mb-3">
               Find or share important updates in your community. If you know
               about any new information, please post and pin it so the admin can
               keep everyone updated.
             </p>
             <Link href={`/dashboard/${branch}/community`}>
-              <Button variant="secondary" className="mt-2 shadow">
+              <Button variant="secondary" className="mt-2 shadow text-sm">
                 Go To Community
               </Button>
             </Link>
