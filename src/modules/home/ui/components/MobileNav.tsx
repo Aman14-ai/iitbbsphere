@@ -17,6 +17,8 @@ import {
   LogIn,
   UserPlus,
   Sparkles,
+  Group,
+  GraduationCap,
 } from "lucide-react";
 import React from "react";
 import Link from "next/link";
@@ -36,17 +38,20 @@ const MobileNav = () => {
   const branchCode = getBranchCode(
     userEmail || ""
   ) as keyof typeof codeBranchMap;
+  const branch = codeBranchMap[branchCode];
 
   const navItems = [
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
     {
-      href: session
-        ? `/dashboard/${codeBranchMap[branchCode]}/community`
-        : "/sign-in",
+      href: session ? `/dashboard/${branch}/community` : "/sign-in",
       label: "Community",
-      icon: <User className="h-4 w-4" />,
+      icon: <Group className="h-4 w-4" />,
     },
-    { href: "/#contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
+    {
+      href: session ? `/dashboard/${branch}/` : "/sign-up",
+      label: "Semester",
+      icon: <GraduationCap className="h-4 w-4" />,
+    },
     ...(session
       ? [
           {

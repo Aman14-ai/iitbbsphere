@@ -8,7 +8,15 @@ import { generatedAvatarUrl } from "@/lib/avatar";
 import { ModeToggle } from "@/components/ModdleToggler";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Mail, LayoutDashboard, Sparkles } from "lucide-react";
+import {
+  Home,
+  User,
+  Mail,
+  LayoutDashboard,
+  Sparkles,
+  Group,
+  GraduationCap,
+} from "lucide-react";
 import MobileNav from "./MobileNav";
 import { getBranchCode } from "@/modules/community/ui/views/CommunityView";
 import { codeBranchMap } from "../../../../../constants";
@@ -22,16 +30,20 @@ const Navbar = () => {
     userEmail || ""
   ) as keyof typeof codeBranchMap;
 
+  const branch = codeBranchMap[branchCode];
+
   const navItems = [
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
     {
-      href: session
-        ? `/dashboard/${codeBranchMap[branchCode]}/community`
-        : "/sign-in",
+      href: session ? `/dashboard/${branch}/community` : "/sign-in",
       label: "Community",
-      icon: <User className="h-4 w-4" />,
+      icon: <Group className="h-4 w-4" />,
     },
-    { href: "/#contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
+    {
+      href: session ? `/dashboard/${branch}` : "/sign-up",
+      label: "Semester",
+      icon: <GraduationCap className="h-4 w-4" />,
+    },
     ...(session
       ? [
           {
