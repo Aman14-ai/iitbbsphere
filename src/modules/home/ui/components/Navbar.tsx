@@ -10,15 +10,27 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, User, Mail, LayoutDashboard, Sparkles } from "lucide-react";
 import MobileNav from "./MobileNav";
+import { getBranchCode } from "@/modules/community/ui/views/CommunityView";
+import { codeBranchMap } from "../../../../../constants";
 
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
+  const userEmail = session?.user.email;
+  const branchCode = getBranchCode(
+    userEmail || ""
+  ) as keyof typeof codeBranchMap;
 
   const navItems = [
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
-    { href: "/#about", label: "About", icon: <User className="h-4 w-4" /> },
+    {
+      href: session
+        ? `/dashboard/${codeBranchMap[branchCode]}/community`
+        : "/sign-in",
+      label: "Community",
+      icon: <User className="h-4 w-4" />,
+    },
     { href: "/#contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
     ...(session
       ? [

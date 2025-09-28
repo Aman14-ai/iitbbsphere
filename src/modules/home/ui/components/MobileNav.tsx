@@ -25,16 +25,28 @@ import { authClient } from "@/lib/auth-client";
 import UserButton from "./UserButton";
 import { generatedAvatarUrl } from "@/lib/avatar";
 import { ModeToggle } from "@/components/ModdleToggler";
+import { codeBranchMap } from "../../../../../constants";
+import { getBranchCode } from "@/modules/community/ui/views/CommunityView";
 
 const MobileNav = () => {
   const { data: session } = authClient.useSession();
   const router = useRouter();
   const pathname = usePathname();
+  const userEmail = session?.user.email;
+  const branchCode = getBranchCode(
+    userEmail || ""
+  ) as keyof typeof codeBranchMap;
 
   const navItems = [
     { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
-    { href: "#about", label: "About", icon: <User className="h-4 w-4" /> },
-    { href: "#contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
+    {
+      href: session
+        ? `/dashboard/${codeBranchMap[branchCode]}/community`
+        : "/sign-in",
+      label: "Community",
+      icon: <User className="h-4 w-4" />,
+    },
+    { href: "/#contact", label: "Contact", icon: <Mail className="h-4 w-4" /> },
     ...(session
       ? [
           {

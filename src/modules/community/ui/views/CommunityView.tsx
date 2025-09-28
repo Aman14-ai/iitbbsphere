@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import EditMessageDialog from "../components/EditMessageDialog";
 
-function getBranchCode(email: string) {
+export function getBranchCode(email: string) {
   if (!email) return "";
   const roll = email.split("@")[0];
   return roll.slice(2, 4); // "ce"
