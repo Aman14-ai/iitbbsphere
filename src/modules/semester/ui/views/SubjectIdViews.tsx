@@ -94,12 +94,20 @@ const SubjectIdViews = ({ subjectId }: Props) => {
     fetchFiles();
   }, [rowDataFromcontentTable.folderId]);
 
-  console.log("all files" , files)
+  console.log("all files", files);
 
   const totalFiles = Object.values(groupedFiles).reduce(
     (sum, arr) => sum + arr.length,
     0
   );
+  if (isLoading) {
+    return (
+      <LoadingState
+        title="Loading files"
+        description="Please wait. It may takes few seconds"
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen py-25 bg-gradient-to-br from-background to-accent/5 px-4">
@@ -153,15 +161,6 @@ const SubjectIdViews = ({ subjectId }: Props) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-        </div>
-
-        <div>
-          {isLoading && (
-            <LoadingState
-              title="Loading Contents"
-              description="Please wait. It may takes few seconds"
-            />
-          )}
         </div>
 
         {/* File Sections */}
