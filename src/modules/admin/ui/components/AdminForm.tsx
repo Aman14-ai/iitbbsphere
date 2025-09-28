@@ -83,7 +83,7 @@ const AdminForm = () => {
     trpc.admin.createContent.mutationOptions({
       onSuccess: () => {
         toast.success("Content added successfully");
-        redirect("/");
+        form.reset();
       },
       onError: (error) => {
         if (error instanceof TRPCError) {
