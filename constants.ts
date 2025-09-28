@@ -7,6 +7,21 @@ export const adminEmail = [
 
 export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']
 
+export type DriveFile = {
+  id: string;
+  name: string;
+  mimeType: string;
+  webViewLink: string;
+  webContentLink?: string;
+};
+
+export type FileGroup = {
+  notes: DriveFile[];
+  tutorials: DriveFile[];
+  assignments: DriveFile[];
+  pyqs: DriveFile[];
+  other: DriveFile[];
+};
 
 export const branchCodeMap: Record<
   | "civil"

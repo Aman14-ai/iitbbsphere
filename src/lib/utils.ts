@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { FileGroup } from "../../constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,3 +13,42 @@ export function formatDateForDB(date: Date) {
 
   return `${year}-${month}-${day}`; // "YYYY-MM-DD"
 }
+
+export const categorizeFile = (fileName: string): keyof FileGroup => {
+  const lowerName = fileName.toLowerCase();
+
+  if (
+    /(class|lecture|notes|unit|chapter|slide)\s*\d*/i.test(fileName) ||
+    lowerName.includes("note") ||
+    lowerName.includes("lecture")
+  ) {
+    return "notes";
+  }
+  if (
+    lowerName.includes("tutorial") ||
+    lowerName.includes("lab") ||
+    lowerName.includes("practical") ||
+    lowerName.includes("exercise")
+  ) {
+    return "tutorials";
+  }
+  if (
+    lowerName.includes("assignment") ||
+    lowerName.includes("homework") ||
+    lowerName.includes("problem set") ||
+    lowerName.includes("hw")
+  ) {
+    return "assignments";
+  }
+  if (
+    lowerName.includes("pyq") ||
+    lowerName.includes("previous year") ||
+    lowerName.includes("question paper") ||
+    lowerName.includes("exam") ||
+    lowerName.includes("midterm") ||
+    lowerName.includes("endterm")
+  ) {
+    return "pyqs";
+  }
+  return "other";
+};

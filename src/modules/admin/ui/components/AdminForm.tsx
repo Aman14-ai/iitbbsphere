@@ -30,6 +30,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { redirect } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
+import { toast } from "sonner";
+import { TRPCError } from "@trpc/server";
 
 const AdminForm = () => {
   const [isPending, setIsPending] = useState(false);
@@ -41,24 +45,16 @@ const AdminForm = () => {
       semester: "",
       subjectCode: "",
       subjectName: "",
-      topicName: "",
-      type: "content",
-      url: "",
+      folderId: "",
       year: "",
+      branch: "",
     },
   });
 
   const onCancel = () => {
     console.log("cancel");
     form.reset();
-    redirect('/');
-  };
-
-  const onSubmit = (values: z.infer<typeof addContentSchemaForAdmin>) => {
-    setIsPending(true);
-    console.log(values);
-    // reset form
-    setIsPending(false);
+    redirect("/");
   };
 
   const contentTypes = [
@@ -69,10 +65,47 @@ const AdminForm = () => {
   ];
 
   const semesters = Array.from({ length: 8 }, (_, i) => (i + 1).toString());
+  const Branches = [
+    "civil",
+    "mechanical",
+    "electrical",
+    "metallurgical",
+    "computer-science",
+    "electronics-communication",
+  ];
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, i) =>
     (currentYear - i).toString()
   );
+
+  const trpc = useTRPC();
+  const createContent = useMutation(
+    trpc.admin.createContent.mutationOptions({
+      onSuccess: () => {
+        toast.success("Content added successfully");
+      },
+      onError: (error) => {
+        if (error instanceof TRPCError) {
+          toast.error(error.message);
+          return;
+        }
+        toast.error("Something went wrong.");
+      },
+    })
+  );
+
+  const onSubmit = async (values: z.infer<typeof addContentSchemaForAdmin>) => {
+    alert("Please Make sure folder Id should be correct , It is not reversible")
+    setIsPending(true);
+    console.log(values);
+    try {
+      await createContent.mutateAsync(values);
+      form.reset();
+    } catch (error) {
+      console.log("Error while submitting content from admin form", error);
+    }
+    setIsPending(false);
+  };
 
   return (
     <div className="transform scale-90 sm:scale-95 md:scale-100 origin-top w-full max-w-4xl mx-auto">
@@ -148,7 +181,9 @@ const AdminForm = () => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Semester</FormLabel>
+                      <FormLabel className="text-foreground">
+                        Semester
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -171,28 +206,26 @@ const AdminForm = () => {
                   )}
                 />
 
-                {/* Content Type */}
+                {/*  select branch */}
                 <FormField
-                  name="type"
+                  name="branch"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">
-                        Content Type
-                      </FormLabel>
+                      <FormLabel className="text-foreground">Branch</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger className="bg-input">
-                            <SelectValue placeholder="Select type" />
+                            <SelectValue placeholder="Select Branch" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {contentTypes.map((type) => (
-                            <SelectItem key={type.value} value={type.value}>
-                              {type.label}
+                          {Branches.map((branch) => (
+                            <SelectItem key={branch} value={branch}>
+                              {branch}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -235,7 +268,28 @@ const AdminForm = () => {
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="e.g., Introduction to Programming"
+                          placeholder="e.g., write short form (IBS)"
+                          className="bg-input"
+                        />
+                      </FormControl>
+                      <FormMessage className="text-red-500 text-xs" />
+                    </FormItem>
+                  )}
+                />
+
+                {/* uploaded by */}
+                <FormField
+                  name="uploadedBy"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-foreground">
+                        Uploaded By
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Your name"
                           className="bg-input"
                         />
                       </FormControl>
@@ -245,32 +299,23 @@ const AdminForm = () => {
                 />
               </div>
 
-              {/* Topic Name */}
-              <FormField
-                name="topicName"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-foreground">Topic Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="e.g., Data Structures and Algorithms"
-                        className="bg-input"
-                      />
-                    </FormControl>
-                    <FormMessage className="text-red-500 text-xs" />
-                  </FormItem>
-                )}
-              />
-
               {/* URL */}
               <FormField
-                name="url"
+                name="folderId"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-foreground">Resource URL</FormLabel>
+                    <div>
+                      <FormLabel className="text-foreground">
+                        Folder Id
+                      </FormLabel>
+                      <span className="text-sm text-muted-foreground">
+                        Note : First you have to upload the folder in you drive
+                        make it public and then on share button add{" "}
+                        <b>drive-reader@iitbbsphere.iam.gserviceaccount.com</b>{" "}
+                        and paster the folder id{" "}
+                      </span>
+                    </div>
                     <FormControl>
                       <Input
                         {...field}

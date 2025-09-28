@@ -83,12 +83,31 @@ export const community = pgTable("community", {
     .primaryKey()
     .$defaultFn(() => nanoid()),
   branchCode: text("branch_code").notNull(),
-  userId: text("user_id").notNull().references(() => user.id, {onDelete:"cascade"}),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
   message: text("message").notNull(),
-  isAdmin: boolean("is_admin").$defaultFn(() => false).notNull(),
+  isAdmin: boolean("is_admin")
+    .$defaultFn(() => false)
+    .notNull(),
   createdAt: timestamp("created_at").$defaultFn(
     () => /* @__PURE__ */ new Date()
-  )
+  ),
 });
 
-
+export const content = pgTable("content", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+  professor: text("professor").notNull(),
+  academicYear: text("academic_year").notNull(),
+  semester: text("semester").notNull(),
+  subjectName: text("subject_name").notNull(),
+  subjectCode: text("subject_code").notNull(),
+  folderId: text("folder_id").notNull(),
+  uploadedBy: text("uploaded_by").notNull(),
+  branch: text("branch").notNull(),
+  createdAt: timestamp("created_at").$defaultFn(
+    () => /* @__PURE__ */ new Date()
+  ),
+});
