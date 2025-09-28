@@ -8,11 +8,13 @@ export async function POST(req: Request) {
     if (!folderId) {
       return NextResponse.json({ error: "Missing folderId" }, { status: 400 });
     }
+    const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+    if (!raw) throw new Error("Missing GOOGLE_SERVICE_ACCOUNT_JSON");
 
-    const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON!);
+    const credentials = JSON.parse(raw);
 
     const auth = new google.auth.GoogleAuth({
-      credentials, 
+      credentials, // ✅ use credentials instead of keyFile
       scopes: ["https://www.googleapis.com/auth/drive.readonly"],
     });
 
