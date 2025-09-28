@@ -81,7 +81,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
         const res = await fetch("/api/drive", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ folderId: rowDataFromcontentTable.folderId }),
+          body: JSON.stringify({ folderId: "1RaYQ5WgRPZK1Vz6TCJob81CilLIRt8Wa" }),
         });
         const data = await res.json();
         setFiles(data);
@@ -93,6 +93,8 @@ const SubjectIdViews = ({ subjectId }: Props) => {
     }
     fetchFiles();
   }, [rowDataFromcontentTable.folderId]);
+
+  console.log("all files" , files)
 
   const totalFiles = Object.values(groupedFiles).reduce(
     (sum, arr) => sum + arr.length,

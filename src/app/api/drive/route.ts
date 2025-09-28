@@ -9,8 +9,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing folderId" }, { status: 400 });
     }
 
+    const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON!);
+
     const auth = new google.auth.GoogleAuth({
-      keyFile: "service-account.json.json", // make sure this exists in server only
+      credentials, 
       scopes: ["https://www.googleapis.com/auth/drive.readonly"],
     });
 
@@ -24,6 +26,9 @@ export async function POST(req: Request) {
     return NextResponse.json(response.data.files || []);
   } catch (err) {
     console.error("Google Drive error:", err);
-    return NextResponse.json({ error: "Failed to fetch files" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch files" },
+      { status: 500 }
+    );
   }
 }
