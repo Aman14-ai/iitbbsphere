@@ -46,7 +46,8 @@ export const categorizeFile = (fileName: string): keyof FileGroup => {
     lowerName.includes("question paper") ||
     lowerName.includes("exam") ||
     lowerName.includes("midterm") ||
-    lowerName.includes("endterm")
+    lowerName.includes("endterm") ||
+    lowerName.includes("test")
   ) {
     return "pyqs";
   }
