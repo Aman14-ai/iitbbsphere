@@ -83,6 +83,7 @@ const AdminForm = () => {
     trpc.admin.createContent.mutationOptions({
       onSuccess: () => {
         toast.success("Content added successfully");
+        redirect("/");
       },
       onError: (error) => {
         if (error instanceof TRPCError) {
@@ -319,7 +320,7 @@ const AdminForm = () => {
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="https://example.com/resource"
+                        placeholder="folder id"
                         className="bg-input"
                       />
                     </FormControl>
