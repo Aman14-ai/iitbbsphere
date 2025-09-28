@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { user } from "@/db/schema";
+import { birthDayWishes, user } from "@/db/schema";
 import {
   baseProcedure,
   createTRPCRouter,
@@ -28,6 +28,12 @@ export const homeRouter = createTRPCRouter({
         AND EXTRACT(DAY FROM birth_date) = ${day}
         `
       );
+
+    // if wishes are old than two days then delete that rows
+    await db
+      .delete(birthDayWishes)
+      .where(sql`created_at < NOW() - interval '2 days'`);
+    console.log("deleting database rows");
 
     return todaysBirthDay;
   }),

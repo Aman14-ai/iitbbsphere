@@ -18,15 +18,13 @@ export const wishesRouter = createTRPCRouter({
         .innerJoin(user, eq(birthDayWishes.fromUserId, user.id))
         .where(eq(birthDayWishes.toUserId, input.toUserId))
         .orderBy(desc(birthDayWishes.createdAt));
-
-
       return allWishes;
     }),
   addWish: protectedProcedure
     .input(z.object({ toUserId: z.string(), message: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const fromUserId = await ctx.session.user.id;
-      
+
       if (!fromUserId) {
         throw new TRPCError({
           code: "UNAUTHORIZED",

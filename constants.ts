@@ -8,6 +8,32 @@ export const adminEmail = [
 export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']
 
 
+export const branchCodeMap: Record<
+  | "civil"
+  | "mechanical"
+  | "electrical"
+  | "computer-science"
+  | "electronics-communication"
+  | "metallurgical",
+  string
+> = {
+  civil: "ce",
+  mechanical: "me",
+  electrical: "ee",
+  "computer-science": "cs",
+  "electronics-communication": "ec",
+  metallurgical: "mm",
+};
+
+export const codeBranchMap: Record<"ce" | "me" | "ee" | "cs" | "ec" | "mm", string> = {
+  ce: "civil",
+  me: "mechanical",
+  ee: "electrical",
+  cs: "computer-science",
+  ec: "electronics-communication",
+  mm: "metallurgical",
+};
+
 export const branchInfo: { [key: string]: { name: string; description: string; color: string } } = {
   civil: {
     name: "Civil Engineering",

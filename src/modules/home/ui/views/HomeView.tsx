@@ -4,6 +4,7 @@ import Hero2 from "../components/Hero2";
 import HowToUse from "../components/HowToUse";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
+import Contributors from "../components/Contributors";
 
 interface Props {
   isBirthDate?: boolean;
@@ -16,6 +17,7 @@ const HomeView = ({ isBirthDate }: Props) => {
       <HowToUse />
       <ContactSection />
       <Footer />
+      <Contributors />
     </div>
   );
 };

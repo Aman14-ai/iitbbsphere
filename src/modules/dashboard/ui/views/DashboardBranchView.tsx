@@ -176,7 +176,7 @@ const DashboardBranchView = ({ branch }: Props) => {
               about any new information, please post and pin it so the admin can
               keep everyone updated.
             </p>
-            <Link href={`/${branch}/community`}>
+            <Link href={`/dashboard/${branch}/community`}>
               <Button variant="secondary" className="mt-2 shadow">
                 Go To Community
               </Button>

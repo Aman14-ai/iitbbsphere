@@ -1,5 +1,5 @@
 import { pgTable, text, timestamp, boolean, date } from "drizzle-orm/pg-core";
-import {nanoid} from 'nanoid'
+import { nanoid } from "nanoid";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -66,10 +66,29 @@ export const birthDayWishes = pgTable("birthDayWishes", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  fromUserId: text("from_user_id").notNull(),
-  toUserId: text("to_user_id").notNull(),
+  fromUserId: text("from_user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  toUserId: text("to_user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
   message: text("message").notNull(),
   createdAt: timestamp("created_at").$defaultFn(
-    () => /* @__PURE__ */ new Date( )
+    () => /* @__PURE__ */ new Date()
   ),
 });
+
+export const community = pgTable("community", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+  branchCode: text("branch_code").notNull(),
+  userId: text("user_id").notNull().references(() => user.id, {onDelete:"cascade"}),
+  message: text("message").notNull(),
+  isAdmin: boolean("is_admin").$defaultFn(() => false).notNull(),
+  createdAt: timestamp("created_at").$defaultFn(
+    () => /* @__PURE__ */ new Date()
+  )
+});
+
+
