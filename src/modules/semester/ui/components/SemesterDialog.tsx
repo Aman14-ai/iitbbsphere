@@ -78,26 +78,7 @@ const SemesterDialog = ({
               />
             </div>
 
-            {/* Semester Preview */}
-            {semester && parseInt(semester) >= 1 && parseInt(semester) <= 8 && (
-              <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">
-                    You&apos;ll access:
-                  </span>
-                  <span className="text-lg font-bold text-primary">
-                    Semester {semester}
-                  </span>
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  {branch
-                    .split("-")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}{" "}
-                  Engineering
-                </div>
-              </div>
-            )}
+           
 
             {/* Error Message */}
             {semester && (parseInt(semester) < 1 || parseInt(semester) > 8) && (
