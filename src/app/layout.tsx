@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
 import { TRPCReactProvider } from "@/trpc/client";
-import AnimatedLayout from "./AnimatedLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,9 +28,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {/* Wrap with animated layout */}
-            <AnimatedLayout>
-              {children}
-            </AnimatedLayout>
+
+            {children}
           </ThemeProvider>
           <Toaster position="top-right" richColors />
         </body>
