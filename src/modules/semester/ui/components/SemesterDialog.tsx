@@ -89,20 +89,6 @@ const SemesterDialog = ({
               </div>
             )}
 
-            {/* Benefits */}
-            <div className="bg-accent/30 rounded-lg p-4">
-              <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" />
-                What you&apos;ll get:
-              </h4>
-              <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Subject-wise study materials</li>
-                <li>• Class notes and tutorials</li>
-                <li>• Previous year question papers</li>
-                <li>• Assignment solutions</li>
-              </ul>
-            </div>
-
             {/* Action Buttons */}
             <div className="flex gap-3">
               <Button
@@ -125,6 +111,22 @@ const SemesterDialog = ({
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
+
+            {/* Benefits */}
+            <div className="bg-accent/30 rounded-lg p-4">
+              <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                What you&apos;ll get:
+              </h4>
+              <ul className="text-xs text-muted-foreground space-y-1">
+                <li>• Subject-wise study materials</li>
+                <li>• Class notes and tutorials</li>
+                <li>• Previous year question papers</li>
+                <li>• Assignment solutions</li>
+              </ul>
+            </div>
+
+            
           </CardContent>
         </ResponsiveDialog>
       </div>
