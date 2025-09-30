@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <TRPCReactProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning >
         <body
           className={`${inter.className} `}
         >

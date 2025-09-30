@@ -4,7 +4,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import React, { useEffect, useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import {
   BookOpen,
   FileText,
@@ -17,7 +16,6 @@ import {
   ClipboardList,
   FileQuestion,
   Sparkles,
-  Search,
   ChevronDown,
   ChevronRight,
 } from "lucide-react";

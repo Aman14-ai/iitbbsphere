@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GraduationCap, ArrowRight, Sparkles, BookOpen } from "lucide-react";
+import ResponsiveDialog from "@/components/ResponsiveDialog";
 
 interface SemesterDialogProps {
   branch: string;
@@ -37,8 +38,13 @@ const SemesterDialog = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-      <div className="mx-4 max-w-md w-full">
-        <Card className="w-full shadow-2xl border-primary/20">
+      <div className="mx-4 max-w-md  w-full shadow-2xl border-primary/20">
+        <ResponsiveDialog
+          open={isOpen}
+          onOpenChange={onOpenChange}
+          title="Choose your semester"
+          description="aman"
+        >
           <CardHeader className="text-center pb-4">
             <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mb-4">
               <GraduationCap className="h-8 w-8 text-primary-foreground" />
@@ -139,7 +145,7 @@ const SemesterDialog = ({
               </Button>
             </div>
           </CardContent>
-        </Card>
+        </ResponsiveDialog>
       </div>
     </div>
   );

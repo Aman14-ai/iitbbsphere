@@ -105,7 +105,7 @@ const SemesterView = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-background to-accent/5 py-8 px-4">
+      <div className="pt-25 min-h-screen bg-gradient-to-br from-background to-accent/5 py-8 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -113,17 +113,17 @@ const SemesterView = () => {
               <GraduationCap className="w-4 h-4" />
               Semester {semester}
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3">
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3">
               {formatBranchName(branch)} Engineering
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm md:text-md">
               Study materials and resources for Semester {semester}
             </p>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <Card className="text-center p-4 border-primary/20">
+            <Card className="text-center py-2  border-primary/20">
               <CardContent className="p-0">
                 <div className="text-2xl font-bold text-primary">
                   {data.length}
@@ -131,7 +131,7 @@ const SemesterView = () => {
                 <div className="text-sm text-muted-foreground">Subjects</div>
               </CardContent>
             </Card>
-            <Card className="text-center p-4 border-primary/20">
+            <Card className="text-center py-2  border-primary/20">
               <CardContent className="p-0">
                 <div className="text-2xl font-bold text-primary">
                   {new Set(data.map((item) => item.uploadedBy)).size}
@@ -141,7 +141,7 @@ const SemesterView = () => {
                 </div>
               </CardContent>
             </Card>
-            <Card className="text-center p-4 border-primary/20">
+            <Card className="text-center py-2  border-primary/20">
               <CardContent className="p-0">
                 <div className="text-2xl font-bold text-primary">
                   {new Set(data.map((item) => item.academicYear)).size}
@@ -151,7 +151,7 @@ const SemesterView = () => {
                 </div>
               </CardContent>
             </Card>
-            <Card className="text-center p-4 border-primary/20">
+            <Card className="text-center py-2  border-primary/20">
               <CardContent className="p-0">
                 <div className="text-2xl font-bold text-primary">
                   {new Set(data.map((item) => item.professor)).size}
@@ -161,9 +161,8 @@ const SemesterView = () => {
             </Card>
           </div>
 
-          {/* Search + Year selector */}
+          {/* Year selector */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-            {/* Year selector */}
             <div className="w-full md:w-auto">
               <div className="relative flex items-center">
                 <button
@@ -187,7 +186,7 @@ const SemesterView = () => {
                         role="tab"
                         aria-selected={isSelected}
                         onClick={() => setSelectedYear(year)}
-                        className={`whitespace-nowrap px-4 py-2 rounded-full border transition-all duration-150 flex items-center gap-2 text-sm font-medium ${
+                        className={`whitespace-nowrap px-3 md:px-4 py-1.5  rounded-full border transition-all duration-150 flex items-center gap-1 text-sm font-medium ${
                           isSelected
                             ? "bg-primary text-primary-foreground shadow-lg scale-105"
                             : "bg-muted text-muted-foreground border-input hover:border-primary"
@@ -195,7 +194,7 @@ const SemesterView = () => {
                       >
                         <span>{year}</span>
                         {isSelected && (
-                          <Badge className="ml-1 px-2 py-0 text-xs">
+                          <Badge className="ml-1 px-0 py-0 text-xs">
                             {filteredData.length}
                           </Badge>
                         )}
