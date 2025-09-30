@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardBranchView from "@/modules/dashboard/ui/views/DashboardBranchView";
+import DashboardBranchView from "@/modules/dashboard/ui/views/DashboardSemesterView";
 import Footer from "@/modules/home/ui/components/Footer";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

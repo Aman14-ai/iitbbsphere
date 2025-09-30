@@ -4,22 +4,21 @@ import LoadingState from "@/components/LoadingState";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input"; // 🔹 make sure Input exists in your shadcn setup
 import Link from "next/link";
 import {
   BookOpen,
   User,
   Calendar,
-  FolderOpen,
   ArrowRight,
   GraduationCap,
   Sparkles,
   Crown,
-  Search,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import NoContent from "../components/NoContent";
 import Contribute from "../components/Contribute";
@@ -38,19 +37,38 @@ const SemesterView = () => {
   );
 
   const [search, setSearch] = useState("");
+  const [selectedYear, setSelectedYear] = useState<string>("All");
+  const yearRef = useRef<HTMLDivElement | null>(null);
 
-  // 🔍 Filtering logic
+  // Dynamic list of years (sorted desc) + 'All' option
+  const years = useMemo(() => {
+    if (!data) return ["All"];
+    const uniq = Array.from(
+      new Set(data.map((d) => d.academicYear || "Unknown"))
+    );
+    // sort by descending (newest first) when strings are numbers, otherwise lexicographic desc
+    uniq.sort(
+      (a, b) => Number(b) - Number(a) || String(b).localeCompare(String(a))
+    );
+    return ["All", ...uniq];
+  }, [data]);
+
+  // 🔍 Filtering logic now also respects selectedYear
   const filteredData = useMemo(() => {
     if (!data) return [];
-    return data.filter((item) => {
-      const query = search.toLowerCase();
+    const query = search.toLowerCase();
+    let list = data.filter((item) => {
       return (
-        item.subjectCode.toLowerCase().includes(query) ||
-        item.subjectName.toLowerCase().includes(query) ||
-        item.academicYear.toLowerCase().includes(query)
+        item.subjectCode?.toLowerCase().includes(query) ||
+        item.subjectName?.toLowerCase().includes(query) ||
+        (item.academicYear ?? "").toLowerCase().includes(query)
       );
     });
-  }, [data, search]);
+    if (selectedYear && selectedYear !== "All") {
+      list = list.filter((item) => item.academicYear === selectedYear);
+    }
+    return list;
+  }, [data, search, selectedYear]);
 
   if (isLoading || !data) {
     return (
@@ -80,6 +98,11 @@ const SemesterView = () => {
       .join(" ");
   };
 
+  function scrollYears(delta = 220) {
+    if (!yearRef.current) return;
+    yearRef.current.scrollBy({ left: delta, behavior: "smooth" });
+  }
+
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-background to-accent/5 py-8 px-4">
@@ -98,18 +121,8 @@ const SemesterView = () => {
             </p>
           </div>
 
-          {/* 🔍 Search Bar */}
-          <div className="flex items-center gap-2 mb-8 max-w-md mx-auto">
-            <Search className="w-5 h-5 text-muted-foreground" />
-            <Input
-              placeholder="Search by Subject Code, Name, or Academic Year..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <Card className="text-center p-4 border-primary/20">
               <CardContent className="p-0">
                 <div className="text-2xl font-bold text-primary">
@@ -146,6 +159,60 @@ const SemesterView = () => {
                 <div className="text-sm text-muted-foreground">Professors</div>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Search + Year selector */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            {/* Year selector */}
+            <div className="w-full md:w-auto">
+              <div className="relative flex items-center">
+                <button
+                  aria-label="scroll years left"
+                  onClick={() => scrollYears(-240)}
+                  className="hidden md:flex items-center justify-center h-8 w-8 rounded-full bg-background/70 border mr-2"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                <div
+                  ref={yearRef}
+                  className="flex gap-2 overflow-x-auto hide-scrollbar items-center py-1 px-1 md:px-0"
+                  role="tablist"
+                >
+                  {years.map((year) => {
+                    const isSelected = selectedYear === year;
+                    return (
+                      <button
+                        key={year}
+                        role="tab"
+                        aria-selected={isSelected}
+                        onClick={() => setSelectedYear(year)}
+                        className={`whitespace-nowrap px-4 py-2 rounded-full border transition-all duration-150 flex items-center gap-2 text-sm font-medium ${
+                          isSelected
+                            ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                            : "bg-muted text-muted-foreground border-input hover:border-primary"
+                        }`}
+                      >
+                        <span>{year}</span>
+                        {isSelected && (
+                          <Badge className="ml-1 px-2 py-0 text-xs">
+                            {filteredData.length}
+                          </Badge>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button
+                  aria-label="scroll years right"
+                  onClick={() => scrollYears(240)}
+                  className="hidden md:flex items-center justify-center h-8 w-8 rounded-full bg-background/70 border ml-2"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Subjects Grid */}
@@ -235,6 +302,17 @@ const SemesterView = () => {
         </div>
       </div>
       <Contribute />
+
+      {/* hide scrollbar styles (works for modern browsers) */}
+      <style jsx>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* Chrome, Safari and Opera */
+        }
+      `}</style>
     </>
   );
 };

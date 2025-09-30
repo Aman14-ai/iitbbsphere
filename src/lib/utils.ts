@@ -26,7 +26,6 @@ export const categorizeFile = (fileName: string): keyof FileGroup => {
   }
   if (
     lowerName.includes("tutorial") ||
-    lowerName.includes("lab") ||
     lowerName.includes("practical") ||
     lowerName.includes("exercise")
   ) {
@@ -35,8 +34,7 @@ export const categorizeFile = (fileName: string): keyof FileGroup => {
   if (
     lowerName.includes("assignment") ||
     lowerName.includes("homework") ||
-    lowerName.includes("problem set") ||
-    lowerName.includes("hw")
+    lowerName.includes("problem set")
   ) {
     return "assignments";
   }
@@ -46,8 +44,13 @@ export const categorizeFile = (fileName: string): keyof FileGroup => {
     lowerName.includes("question paper") ||
     lowerName.includes("exam") ||
     lowerName.includes("midterm") ||
+    lowerName.includes("midsem") ||
+    lowerName.includes("mid sem") ||
     lowerName.includes("endterm") ||
-    lowerName.includes("test")
+    lowerName.includes("end sem") ||
+    lowerName.includes("endsem") ||
+    lowerName.includes("test") ||
+    lowerName.includes("quiz") 
   ) {
     return "pyqs";
   }
