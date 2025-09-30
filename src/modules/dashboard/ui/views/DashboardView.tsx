@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { branches } from "../../../../../constants";
+import {motion} from 'framer-motion'
 
 const DashboardView = () => {
   let searchedBranches = branches;

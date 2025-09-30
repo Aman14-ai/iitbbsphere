@@ -37,6 +37,7 @@
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "form": "^0.2.5",
+    "framer-motion": "^12.23.22",
     "googleapis": "^160.0.0",
     "lucide-react": "^0.544.0",
     "nanoid": "^5.1.6",

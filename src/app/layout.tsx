@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
 import { TRPCReactProvider } from "@/trpc/client";
+import AnimatedLayout from "./AnimatedLayout";
 
-const inter =  Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IITBBSphere",
@@ -19,17 +20,18 @@ export default function RootLayout({
 }>) {
   return (
     <TRPCReactProvider>
-      <html lang="en" suppressHydrationWarning >
-        <body
-          className={`${inter.className} `}
-        >
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            {/* Wrap with animated layout */}
+            <AnimatedLayout>
+              {children}
+            </AnimatedLayout>
           </ThemeProvider>
           <Toaster position="top-right" richColors />
         </body>

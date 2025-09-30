@@ -11,8 +11,10 @@ interface Props {
 const Hero2 = ({ isBirthDate }: Props) => {
   return (
     <div className="container px-3 pt-25 mx-auto max-w-7xl">
-      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 
-                      scale-90 sm:scale-95 md:scale-100">
+      <div
+        className="flex flex-col md:flex-row items-center gap-6 md:gap-12 
+                      scale-90 sm:scale-95 md:scale-100"
+      >
         {/* Left Section */}
         <div className="w-full md:w-5/12 flex gap-9 flex-col justify-center md:justify-start">
           <img
@@ -32,7 +34,8 @@ const Hero2 = ({ isBirthDate }: Props) => {
           )}
 
           <h1 className="text-2xl sm:text-3xl md:text-5xl  font-bold text-foreground leading-tight">
-            Solve your problems of <span className="text-primary">study</span>
+            Your Campus, Your Learning {" "}
+            <span className="text-primary">Hub</span>
           </h1>
 
           <p className="text-sm sm:text-base md:text-md text-muted-foreground max-w-lg">
