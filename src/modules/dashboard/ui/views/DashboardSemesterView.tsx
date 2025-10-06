@@ -4,14 +4,10 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  BookOpen,
   Users,
-  Calendar,
-  ArrowRight,
   GraduationCap,
   Sparkles,
 } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { branchInfo } from "../../../../../constants";
 import SemesterChoose from "../components/SemesterChoose";
 
@@ -20,7 +16,7 @@ interface Props {
 }
 
 const DashboardBranchView = ({ branch }: Props) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(true);
 
   const branchData = branchInfo[branch] || {
     name: branch
