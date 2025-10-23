@@ -36,12 +36,11 @@ const DashboardBranchView = ({ branch }: Props) => {
             <GraduationCap className="w-4 h-4" />
             {branchData.name}
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-2">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-2">
             Choose Your Semester
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto md:text-md text-sm">
-            Select your semester to access study materials, resources, and
-            connect with classmates
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Select your semester to access study materials, resources
           </p>
         </div>
 
@@ -55,10 +54,10 @@ const DashboardBranchView = ({ branch }: Props) => {
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h2 className="text-lg md:text-xl font-bold text-foreground mb-2">
+                <h2 className="text-xl font-bold text-foreground mb-2">
                   {branchData.name}
                 </h2>
-                <p className="text-muted-foreground md:text-md text-sm">
+                <p className="text-muted-foreground ">
                   {branchData.description}
                 </p>
               </div>
@@ -82,7 +81,7 @@ const DashboardBranchView = ({ branch }: Props) => {
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 mb-3">
               <Users className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="text-md md:text-lg font-bold text-foreground mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               {branch} Community: Updates & Help
             </h3>
             <p className="text-muted-foreground text-sm mb-3">

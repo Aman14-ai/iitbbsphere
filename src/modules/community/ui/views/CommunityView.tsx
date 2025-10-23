@@ -177,7 +177,7 @@ const CommunityView = () => {
   return (
     <>
     <EditMessageDialog open={openEditMessageDialog} onOpenChange={setOpenEditMessageDialog} branchCode={branchCode} rowId={rowId} />
-    <div className="flex items-center mt-25 justify-center min-h-screen bg-background/10">
+    <div className="flex items-center  justify-center min-h-screen bg-background/10">
       <div className="w-full max-w-2xl mx-auto bg-card shadow-lg rounded-xl flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-border flex justify-between items-center">

@@ -34,7 +34,7 @@ const UserButton = ({ name, email, image, onSignOut }: Props) => {
             />
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-sm font-medium text-primary">{name}</span>
+            <span className="text-sm font-medium text-foreground">{name}</span>
             <span className="text-xs text-muted-foreground">{email}</span>
           </div>
         </div>

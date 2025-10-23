@@ -43,13 +43,13 @@ const SemesterDialog = ({
           open={isOpen}
           onOpenChange={onOpenChange}
           title="Choose your semester"
-          description="aman"
+          description=""
         >
           <CardHeader className="text-center pb-4">
             <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center mb-4">
               <GraduationCap className="h-8 w-8 text-primary-foreground" />
             </div>
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            <CardTitle className="text-2xl font-bold text-primary">
               Choose Your Semester
             </CardTitle>
             <CardDescription className="text-muted-foreground">
@@ -74,7 +74,7 @@ const SemesterDialog = ({
                 value={semester}
                 onChange={(e) => setSemester(e.target.value)}
                 placeholder="Enter semester number (1-8)"
-                className="w-full h-12 text-base border-2 border-border hover:border-primary/50 transition-colors text-center text-lg font-semibold"
+                className="w-full h-12  border-2 border-border hover:border-primary/50 transition-colors text-center text-lg font-semibold"
               />
             </div>
 
@@ -118,7 +118,7 @@ const SemesterDialog = ({
                 <Sparkles className="h-4 w-4 text-primary" />
                 What you&apos;ll get:
               </h4>
-              <ul className="text-xs text-muted-foreground space-y-1">
+              <ul className=" text-muted-foreground space-y-1">
                 <li>• Subject-wise study materials</li>
                 <li>• Class notes and tutorials</li>
                 <li>• Previous year question papers</li>

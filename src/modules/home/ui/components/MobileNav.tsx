@@ -56,7 +56,7 @@ const MobileNav = () => {
       ? [
           {
             href: "/dashboard",
-            label: "Dashboard",
+            label: "Branches",
             icon: <LayoutDashboard className="h-4 w-4" />,
           },
         ]

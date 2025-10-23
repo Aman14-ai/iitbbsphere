@@ -48,7 +48,7 @@ const Navbar = () => {
       ? [
           {
             href: "/dashboard",
-            label: "Dashboard",
+            label: "Branches",
             icon: <LayoutDashboard className="h-4 w-4" />,
           },
         ]
@@ -57,18 +57,18 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="py-1 max-w-[400px] md:max-w-[1000px] mt-2 mx-auto shadow-lg shadow-primary/20 rounded-2xl z-50 fixed left-1/2 right-1/2 -translate-x-1/2 bg-muted top-0 w-full border-b border-primary/10 ">
-        <div className="container mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+      <nav className=" z-50 fixed w-full top-0   h-14  ">
+        <div className="mx-auto max-w-6xl py-3 px-2 bg-background rounded-2xl flex border-primary/10 border-b items-center justify-between ">
           <Link
             href="/"
             className="flex items-center gap-3 group transition-all duration-300"
           >
-            <div className="relative p-2 bg-gradient-to-br from-primary to-primary/70 rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
+            <div className="relative p-2 bg-primary rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
               <Sparkles className="h-6 w-6 text-primary-foreground" />
               <div className="absolute -inset-1 rounded-xl bg-primary/20 blur-md group-hover:bg-primary/30 transition-colors duration-300 -z-10"></div>
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              <span className="font-bold text-xl text-primary">
                 IITBBSphere
               </span>
               <span className="text-xs text-muted-foreground -mt-1">
@@ -78,7 +78,7 @@ const Navbar = () => {
           </Link>
 
           {/* Navigation Links */}
-          <ul className="hidden md:flex items-center justify-center gap-1">
+          <ul className="hidden md:flex items-center justify-center gap-6">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (

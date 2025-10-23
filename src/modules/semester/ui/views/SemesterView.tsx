@@ -122,7 +122,7 @@ const SemesterView = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="hidden md:grid  grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <Card className="text-center py-2  border-primary/20">
               <CardContent className="p-0">
                 <div className="text-2xl font-bold text-primary">
@@ -193,11 +193,6 @@ const SemesterView = () => {
                         }`}
                       >
                         <span>{year}</span>
-                        {isSelected && (
-                          <Badge className="ml-1 px-0 py-0 text-xs">
-                            {filteredData.length}
-                          </Badge>
-                        )}
                       </button>
                     );
                   })}

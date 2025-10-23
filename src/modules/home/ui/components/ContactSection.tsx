@@ -1,11 +1,5 @@
 "use client";
-import {
-  Mail,
-  MessageCircle,
-  Zap,
-  Send,
-  Loader2,
-} from "lucide-react";
+import {  Zap, Send, Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,96 +56,14 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className=" bg-gradient-to-b from-accent/5 to-background overflow-hidden"
+      className=" py-16 bg-gray-50 dark:bg-gray-900 overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-20 right-10 w-20 h-20 sm:w-32 sm:h-32 bg-primary rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-16 h-16 sm:w-24 sm:h-24 bg-primary rounded-full blur-2xl"></div>
-      </div>
-
       <div className="container px-3 sm:px-4 mx-auto max-w-7xl relative z-10 scale-90 sm:scale-95 md:scale-100">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16 md:mb-20 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-primary/20 text-primary text-sm sm:text-md font-semibold mb-4 sm:mb-5">
-            <MessageCircle className="w-4 h-4" />
-            Get In Touch
-          </div>
-          <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3 sm:mb-4">
-            Contact us
-          </h2>
-          <p className="text-sm  md:text-md text-muted-foreground max-w-xl sm:max-w-2xl mx-auto mb-2">
-            Simple steps to help you get started in finding all contents.
-          </p>
-          <p className="text-sm  md:text-md text-muted-foreground leading-relaxed">
-            Have questions about anything? We&apos;re here to help and would love
-            to hear from you.
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-          {/* Contact Illustration (hidden on mobile) */}
-          <div className="space-y-6 sm:space-y-8 hidden md:block">
-            <div className="relative p-6 sm:p-8 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl border border-primary/20 overflow-hidden">
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-4 left-4 w-12 h-12 sm:w-20 sm:h-20 bg-primary rounded-full animate-pulse"></div>
-                <div className="absolute bottom-4 right-4 w-10 h-10 sm:w-16 sm:h-16 bg-primary rounded-full animate-bounce"></div>
-              </div>
+        <h2 className="mb-12 text-3xl font-bold text-center">Contact us</h2>
 
-              <div className="relative z-10 text-center">
-                <div className="relative inline-block mb-4 sm:mb-6">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 animate-float">
-                    <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-primary-foreground" />
-                  </div>
-                  <div className="absolute -top-2 -right-2 w-4 h-4 sm:w-6 sm:h-6 bg-green-400 rounded-full animate-pulse border-2 border-background"></div>
-                </div>
-
-                <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 sm:mb-3">
-                  Let&apos;s Start a Conversation
-                </h3>
-                <p className="text-sm sm:text-md text-muted-foreground mb-4 sm:mb-6 max-w-md mx-auto">
-                  Drop us a message and we&apos;ll get back to you faster. Our team
-                  is excited to help you with your study needs.
-                </p>
-
-                <div className="flex justify-center space-x-2 mb-3 sm:mb-4">
-                  {[1, 2, 3].map((dot) => (
-                    <div
-                      key={dot}
-                      className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full animate-bounce"
-                      style={{ animationDelay: `${dot * 0.2}s` }}
-                    ></div>
-                  ))}
-                </div>
-
-                <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-primary/10 text-primary rounded-full  text-sm font-medium">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-sm">Do help your friends for any kind of update</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              {[
-                { label: "Support", value: "24/7" },
-                { label: "Avg Response", value: "1h" },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="text-center p-3 sm:p-4 bg-card rounded-lg border border-border"
-                >
-                  <div className="text-lg sm:text-2xl font-bold text-primary mb-1">
-                    {item.value}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {item.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
+        <div className="max-w-3xl mx-auto">
           {/* Contact Form */}
           <Card className="border-border shadow-lg">
             <CardContent className="p-7">
@@ -160,21 +72,21 @@ const ContactSection = () => {
                   <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground text-lg sm:text-xl">
+                  <h3 className="font-semibold text-foreground text-xl">
                     Send us a message
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                     We&apos;ll get back to you soon
                   </p>
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="space-y-1.5">
                     <label
                       htmlFor="name"
-                      className="text-xs sm:text-sm font-medium text-foreground"
+                      className="font-medium text-foreground"
                     >
                       Full Name *
                     </label>
@@ -189,10 +101,10 @@ const ContactSection = () => {
                       className="bg-input border-border focus:ring-primary focus:ring-2"
                     />
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     <label
                       htmlFor="email"
-                      className="text-xs sm:text-sm font-medium text-foreground"
+                      className="font-medium text-foreground"
                     >
                       Email Address *
                     </label>
@@ -212,7 +124,7 @@ const ContactSection = () => {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="subject"
-                    className="text-xs sm:text-sm font-medium text-foreground"
+                    className=" font-medium text-foreground"
                   >
                     Subject *
                   </label>
@@ -231,7 +143,7 @@ const ContactSection = () => {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="message"
-                    className="text-xs sm:text-sm font-medium text-foreground"
+                    className=" font-medium text-foreground"
                   >
                     Message *
                   </label>
@@ -246,28 +158,25 @@ const ContactSection = () => {
                     className="bg-input border-border resize-none focus:ring-primary focus:ring-2"
                   />
                 </div>
-
-                <Button
-                  disabled={isLoading}
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/90 transition-all duration-300 flex items-center justify-center text-sm sm:text-base py-2 sm:py-3"
-                >
-                  {isLoading ? (
-                    <>
-                      <span className="mr-2">Sending</span>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
-
-                <p className="text-[10px] sm:text-xs text-center text-muted-foreground mt-2 sm:mt-3">
-                  By submitting this form, you agree to our privacy policy.
-                </p>
+                <div className="flex items-center justify-end">
+                  <Button
+                    disabled={isLoading}
+                    type="submit"
+                    className="sm:w-full md:w-auto"
+                  >
+                    {isLoading ? (
+                      <>
+                        <span className="mr-2">Sending</span>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </div>
               </form>
             </CardContent>
           </Card>

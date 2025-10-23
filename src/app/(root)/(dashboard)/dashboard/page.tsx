@@ -8,22 +8,19 @@ import React from "react";
 
 export const metadata: Metadata = {
   title: "IITBBSphere | Branch",
-}
+};
 
-const page = async() => {
-
+const page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
-  })
+  });
 
-  if(!session)
-  {
-    redirect('/sign-in');
+  if (!session) {
+    redirect("/sign-in");
   }
 
-
   return (
-    <div className="py-25">
+    <div className="pt-25 bg-gradient-to-b from-white to-blue-100 dark:from-gray-950 dark:to-gray-800">
       <DashboardView />
       <Footer />
     </div>

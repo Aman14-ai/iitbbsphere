@@ -5,20 +5,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
-  GraduationCap,
   Users,
   BookOpen,
   Sparkles,
+  SearchIcon,
+  RotateCcw,
 } from "lucide-react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { branches } from "../../../../../constants";
-import {motion} from 'framer-motion'
 
 const DashboardView = () => {
   let searchedBranches = branches;
   const [searchBranch, setSearchBranch] = useState("");
-  console.log(searchBranch);
 
   if (searchBranch) {
     searchedBranches = branches.filter((branch) =>
@@ -26,32 +25,45 @@ const DashboardView = () => {
     );
   }
 
+  const onReset = () => {
+    setSearchBranch("");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-accent/5 py-6 px-3 sm:py-8 sm:px-4">
+    <div className="min-h-screen  py-6 px-3 sm:py-8 sm:px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-1 sm:gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-2 sm:mb-4">
-            <GraduationCap className="w-3 h-3 sm:w-4 sm:h-4" />
-            Engineering Branches
-          </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-2 sm:mb-4">
+        <div className="text-center mb-12">
+          <h1 className="text-foreground text-3xl font-bold   mb-4">
             Choose Your Branch
           </h1>
-          <p className="text-sm sm:text-md text-muted-foreground max-w-2xl mx-auto">
-            Explore study materials, resources, and connect with students from
-            your engineering branch
+          <p className=" text-muted-foreground max-w-2xl mx-auto">
+            Explore study materials, resources, and connect with your peers.
           </p>
         </div>
 
-        <div className="max-w-sm my-5">
-          <Input
-            className="bg-input"
-            value={searchBranch}
-            onChange={(e) => setSearchBranch(e.target.value)}
-            type="text"
-            placeholder="Search branches..."
-          />
+        <div className="mb-6 flex items-center gap-4">
+          <div className="relative flex-1">
+            <Input
+              placeholder={`Search Branches...`}
+              value={searchBranch}
+              onChange={(e) => setSearchBranch(e.target.value)}
+              className="w-full bg-background shadow-none appearance-none pl-8 pr-10"
+            />
+            <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            {searchBranch && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-1 top-1 h-8 w-8 p-0"
+                onClick={onReset}
+                title="Reset search and reload original data"
+              >
+                <RotateCcw className="h-4 w-4" />
+                <span className="sr-only">Reset search</span>
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Branches Grid */}
@@ -75,12 +87,12 @@ const DashboardView = () => {
                     </div>
 
                     {/* Branch Name */}
-                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1 sm:mb-2 line-clamp-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-1">
                       {branch.name}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3 line-clamp-2 leading-tight">
+                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-tight">
                       {branch.description}
                     </p>
 
@@ -117,8 +129,8 @@ const DashboardView = () => {
 
         {/* Footer CTA */}
         <div className="text-center mt-8 sm:mt-12">
-          <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
-            <CardContent className="p-4 sm:p-8">
+          <Card className="bg-primary/10 border-primary/20">
+            <CardContent className="p-6">
               <Sparkles className="w-8 h-8 sm:w-12 sm:h-12 text-primary mx-auto mb-2 sm:mb-4" />
               <h3 className="text-lg sm:text-2xl font-bold text-foreground mb-1 sm:mb-2">
                 Can&apos;t Find Your Branch?

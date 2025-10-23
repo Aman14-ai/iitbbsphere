@@ -12,12 +12,12 @@ interface Props {
 
 const HomeView = ({ isBirthDate }: Props) => {
   return (
-    <div className="flex flex-col space-y-8">
+    <div className="flex flex-col ">
       <Hero2 isBirthDate={isBirthDate} />
       <HowToUse />
       <ContactSection />
-      <Footer />
       <Contributors />
+      <Footer />
     </div>
   );
 };

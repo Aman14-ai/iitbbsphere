@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 const AddBirthDayInput = () => {
-
   const session = authClient.useSession();
   const router = useRouter();
   const [openDialog, setOpenDialog] = useState(false);
@@ -18,11 +17,10 @@ const AddBirthDayInput = () => {
         onClick={() => {
           if (!session.data?.user) {
             router.push("/sign-in");
-          }
-          else setOpenDialog(true);
+          } else setOpenDialog(true);
         }}
       >
-        <div className="relative inline-flex justify-center items-center px-2 py-2 rounded-xl bg-background max-w-[350px] text-primary font-medium text-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 cursor-pointer group">
+        <div className="relative inline-flex justify-center items-center px-2 py-1 rounded-xl  max-w-[350px] text-primary font-medium text-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 cursor-pointer group">
           <div className="flex items-center gap-2">
             <div className="relative">
               <div className="w-6 h-6 bg-primary/10 rounded-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300">

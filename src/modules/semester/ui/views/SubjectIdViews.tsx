@@ -179,7 +179,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
 
           {/* Files List - Collapsible */}
           {isExpanded && (
-            <div className="px-6 pb-6 space-y-3">
+            <div className="px-6 py-4 space-y-3">
               {files.map((file) => (
                 <div
                   key={file.id}

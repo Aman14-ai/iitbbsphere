@@ -28,7 +28,7 @@ const SemesterChoose = ({branch , isDialogOpen , setIsDialogOpen}:Props) => {
             <h2 className="text-xl font-bold text-foreground mb-3">
               Access Study Materials
             </h2>
-            <p className="text-muted-foreground mb-6 text-sm">
+            <p className="text-muted-foreground mb-6">
               Choose your semester to explore subject-wise resources, notes, and previous year papers
             </p>
             <Button 

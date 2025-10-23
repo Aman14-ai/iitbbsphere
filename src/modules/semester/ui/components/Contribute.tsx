@@ -10,8 +10,8 @@ const Contribute = () => {
         <h3 className="text-lg font-semibold text-foreground mb-2">
           Can&apos;t find what you&apos;re looking for?
         </h3>
-        <p className="text-muted-foreground max-w-2xl mx-auto text-sm mb-4">
-          Request specific study materials or contribute to the community. You can also become an admin to upload new resources and support others, making a meaningful impact.
+        <p className="text-muted-foreground max-w-2xl mx-auto  mb-4">
+          You can also become an admin to upload new resources and support others.
         </p>
         <div className="flex gap-3 justify-center">
           
