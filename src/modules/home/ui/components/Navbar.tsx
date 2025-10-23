@@ -20,6 +20,7 @@ import {
 import MobileNav from "./MobileNav";
 import { getBranchCode } from "@/modules/community/ui/views/CommunityView";
 import { codeBranchMap } from "../../../../../constants";
+import Image from "next/image";
 
 const Navbar = () => {
   const router = useRouter();
@@ -57,16 +58,13 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className=" z-50 fixed w-full top-0   h-14  ">
-        <div className="mx-auto max-w-6xl py-3 px-2 bg-background rounded-2xl flex border-primary/10 border-b items-center justify-between ">
+      <nav className=" z-50 fixed w-full py-3  border-primary/10 border-b top-0 px-4 bg-background h-16  ">
+        <div className="flex items-center justify-between ">
           <Link
             href="/"
             className="flex items-center gap-3 group transition-all duration-300"
           >
-            <div className="relative p-2 bg-primary rounded-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
-              <Sparkles className="h-6 w-6 text-primary-foreground" />
-              <div className="absolute -inset-1 rounded-xl bg-primary/20 blur-md group-hover:bg-primary/30 transition-colors duration-300 -z-10"></div>
-            </div>
+            <Image src={"/iitlogo.png"} alt="Logo" width={32} height={32} />
             <div className="flex flex-col">
               <span className="font-bold text-xl text-primary">
                 IITBBSphere
