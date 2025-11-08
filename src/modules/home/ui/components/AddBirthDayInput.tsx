@@ -1,8 +1,6 @@
 "use client";
-import Link from "next/link";
 import React, { useState } from "react";
 import AddBirthdayDialog from "./AddBirthdayDialog";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 

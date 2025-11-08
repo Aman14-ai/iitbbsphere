@@ -1,13 +1,19 @@
 "use client";
-import {  Zap, Send, Loader2 } from "lucide-react";
+import { Zap, Send, Loader2 } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+import ResponsiveDialog from "../../../../components/ResponsiveDialog";
 
-const ContactSection = () => {
+interface Props {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+const ContactSection = ({ open, onOpenChange }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -54,15 +60,13 @@ const ContactSection = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className=" py-16 bg-gray-50 dark:bg-gray-900 overflow-hidden"
+    <ResponsiveDialog
+      open={open}
+      title="Contact Us"
+      description="We would love to hear from you!"
+      onOpenChange={onOpenChange}
     >
       <div className="container px-3 sm:px-4 mx-auto max-w-7xl relative z-10 scale-90 sm:scale-95 md:scale-100">
-        {/* Header */}
-
-        <h2 className="mb-12 text-3xl font-bold text-center">Contact us</h2>
-
         <div className="max-w-3xl mx-auto">
           {/* Contact Form */}
           <Card className="border-border shadow-lg">
@@ -83,7 +87,7 @@ const ContactSection = () => {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
-                  <div className="space-y-1.5">
+                  <div className="flex flex-col space-y-1.5">
                     <label
                       htmlFor="name"
                       className="font-medium text-foreground"
@@ -101,7 +105,7 @@ const ContactSection = () => {
                       className="bg-input border-border focus:ring-primary focus:ring-2"
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="flex flex-col space-y-1.5">
                     <label
                       htmlFor="email"
                       className="font-medium text-foreground"
@@ -121,7 +125,7 @@ const ContactSection = () => {
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
+                <div className="flex flex-col space-y-1.5">
                   <label
                     htmlFor="subject"
                     className=" font-medium text-foreground"
@@ -140,7 +144,7 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <div className="space-y-1.5">
+                <div className="flex flex-col space-y-1.5">
                   <label
                     htmlFor="message"
                     className=" font-medium text-foreground"
@@ -158,7 +162,9 @@ const ContactSection = () => {
                     className="bg-input border-border resize-none focus:ring-primary focus:ring-2"
                   />
                 </div>
-                <div className="flex items-center justify-end">
+
+                <div className="flex items-center  justify-between ">
+                  <Button onClick={()=> onOpenChange(false)} variant="outline">Cancel</Button>
                   <Button
                     disabled={isLoading}
                     type="submit"
@@ -182,7 +188,7 @@ const ContactSection = () => {
           </Card>
         </div>
       </div>
-    </section>
+    </ResponsiveDialog>
   );
 };
 
