@@ -40,20 +40,17 @@ const SemesterView = () => {
   const [selectedYear, setSelectedYear] = useState<string>("All");
   const yearRef = useRef<HTMLDivElement | null>(null);
 
-  // Dynamic list of years (sorted desc) + 'All' option
   const years = useMemo(() => {
     if (!data) return ["All"];
     const uniq = Array.from(
       new Set(data.map((d) => d.academicYear || "Unknown"))
     );
-    // sort by descending (newest first) when strings are numbers, otherwise lexicographic desc
     uniq.sort(
       (a, b) => Number(b) - Number(a) || String(b).localeCompare(String(a))
     );
     return ["All", ...uniq];
   }, [data]);
 
-  // 🔍 Filtering logic now also respects selectedYear
   const filteredData = useMemo(() => {
     if (!data) return [];
     const query = search.toLowerCase();
@@ -90,7 +87,6 @@ const SemesterView = () => {
     return <NoContent branch={branch} semester={semester} />;
   }
 
-  // Format branch name for display
   const formatBranchName = (branch: string) => {
     return branch
       .split("-")
@@ -105,7 +101,7 @@ const SemesterView = () => {
 
   return (
     <>
-      <div className="pt-25 min-h-screen bg-gradient-to-br from-background to-accent/5 py-8 px-4">
+      <div className="pt-25 min-h-screen py-8 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -113,7 +109,7 @@ const SemesterView = () => {
               <GraduationCap className="w-4 h-4" />
               Semester {semester}
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent mb-3">
+            <h1 className="text-2xl md:text-3xl font-bold  mb-3">
               {formatBranchName(branch)} Engineering
             </h1>
             <p className="text-muted-foreground text-sm md:text-md">
@@ -121,45 +117,6 @@ const SemesterView = () => {
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="hidden md:grid  grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <Card className="text-center py-2  border-primary/20">
-              <CardContent className="p-0">
-                <div className="text-2xl font-bold text-primary">
-                  {data.length}
-                </div>
-                <div className="text-sm text-muted-foreground">Subjects</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center py-2  border-primary/20">
-              <CardContent className="p-0">
-                <div className="text-2xl font-bold text-primary">
-                  {new Set(data.map((item) => item.uploadedBy)).size}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Contributors
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="text-center py-2  border-primary/20">
-              <CardContent className="p-0">
-                <div className="text-2xl font-bold text-primary">
-                  {new Set(data.map((item) => item.academicYear)).size}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Academic Years
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="text-center py-2  border-primary/20">
-              <CardContent className="p-0">
-                <div className="text-2xl font-bold text-primary">
-                  {new Set(data.map((item) => item.professor)).size}
-                </div>
-                <div className="text-sm text-muted-foreground">Professors</div>
-              </CardContent>
-            </Card>
-          </div>
 
           {/* Year selector */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">

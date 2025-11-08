@@ -11,7 +11,7 @@ const Contribute = () => {
   return (
     <>
       <ContactSection open={openContact} onOpenChange={setOpenContact} />
-      <Card className="mt-8 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
+      <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10">
         <CardContent className="p-6 text-center">
           <h3 className="text-lg font-semibold text-foreground mb-2">
             Can&apos;t find what you&apos;re looking for?

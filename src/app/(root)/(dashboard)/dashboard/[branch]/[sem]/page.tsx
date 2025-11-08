@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import Footer from "@/modules/home/ui/components/Footer";
 import SemesterView from "@/modules/semester/ui/views/SemesterView";
 import { Metadata } from "next";
 import { headers } from "next/headers";
@@ -9,9 +10,9 @@ interface Props {
   params: Promise<{ sem: string }>;
 }
 
-export const metadata:Metadata = {
+export const metadata: Metadata = {
   title: "IITBBSphere | Contents",
-}
+};
 
 const page = async ({ params }: Props) => {
   const { sem } = await params;
@@ -23,10 +24,12 @@ const page = async ({ params }: Props) => {
     redirect("/sign-in");
   }
 
- 
-
   return (
-    <SemesterView />
+    <>
+    <div className="bg-gradient-to-b from-background to-ring/30">
+      <SemesterView />
+    </div>
+    </> 
   );
 };
 

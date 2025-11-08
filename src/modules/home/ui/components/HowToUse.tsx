@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Calendar, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Calendar } from "lucide-react";
 import React from "react";
 
 const HowToUse = () => {
