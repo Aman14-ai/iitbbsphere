@@ -13,7 +13,7 @@ interface Props {
 const NoContent = ({ branch, semester }: Props) => {
   return (
     <>
-      <div className="pt-30  flex items-center justify-center bg-gradient-to-br from-background to-accent/5">
+      <div className="py-30   flex items-center justify-center bg-gradient-to-br from-background to-accent/5">
         <Card className="text-center p-8 max-w-md">
           <CardContent>
             <FolderOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />

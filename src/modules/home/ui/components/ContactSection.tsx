@@ -163,8 +163,7 @@ const ContactSection = ({ open, onOpenChange }: Props) => {
                   />
                 </div>
 
-                <div className="flex items-center  justify-between ">
-                  <Button onClick={()=> onOpenChange(false)} variant="outline">Cancel</Button>
+                <div className="flex items-center  justify-end ">
                   <Button
                     disabled={isLoading}
                     type="submit"
