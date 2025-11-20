@@ -210,7 +210,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
                       <a
                         href={file.webContentLink}
                         download
-                        className="h-8 w-8 p-0 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                        className="hidden md:inline-flex h-8 w-8 p-0  items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       >
                         <Download className="w-4 h-4" />
                       </a>
@@ -240,7 +240,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
   }
 
   return (
-    <div className="min-h-screen py-25 bg-gradient-to-br from-background to-accent/5 px-4">
+    <div className="bg-gradient-to-b from-background to-ring/30 min-h-screen py-25  px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20 mb-8">
