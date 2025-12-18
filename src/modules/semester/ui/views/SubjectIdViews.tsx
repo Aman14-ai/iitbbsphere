@@ -243,41 +243,58 @@ const SubjectIdViews = ({ subjectId }: Props) => {
     <div className="bg-gradient-to-b from-background to-ring/30 min-h-screen py-25  px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20 mb-8">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <Badge variant="outline" className="text-xs">
+        <Card className="overflow-hidden border-l-4 border-l-primary bg-primary/2 transition-all hover:shadow-md mb-6">
+          <CardContent className="py-4 px-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                {/* Top Row: Badges and Subject Code */}
+                <div className="flex items-center gap-2 mb-1">
+                  <Badge
+                    variant="secondary"
+                    className="px-1.5 py-0 text-[10px] uppercase tracking-wider font-bold"
+                  >
                     {rowDataFromcontentTable.subjectCode}
                   </Badge>
-                  <Badge variant="secondary" className="text-xs">
-                    Sem {rowDataFromcontentTable.semester}
-                  </Badge>
+                  <span className="text-xs font-medium text-muted-foreground uppercase">
+                    Semester {rowDataFromcontentTable.semester}
+                  </span>
                 </div>
-                <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+
+                {/* Middle Row: Subject Name */}
+                <h2 className="text-xl font-semibold tracking-tight text-foreground truncate mb-1.5">
                   {rowDataFromcontentTable.subjectName}
-                </h1>
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    <span>{rowDataFromcontentTable.professor}</span>
+                </h2>
+
+                {/* Bottom Row: Metadata Highlights */}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5" />
+                    <span className="truncate max-w-[150px]">
+                      {rowDataFromcontentTable.professor}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
+                  <div className=" items-center gap-1.5 border-l pl-4 hidden sm:flex">
+                    <Calendar className="w-3.5 h-3.5" />
                     <span>AY {rowDataFromcontentTable.academicYear}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <FolderOpen className="w-4 h-4" />
+                  <div className="flex items-center gap-1.5 border-l pl-4">
+                    <FolderOpen className="w-3.5 h-3.5" />
                     <span>{totalFiles} files</span>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">
-                  Uploaded by {rowDataFromcontentTable.uploadedBy}
-                </span>
+
+              {/* Right Side: Secondary Info/Actions */}
+              <div className="flex items-center shrink-0 border-t md:border-t-0 pt-3 md:pt-0">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/10">
+                  <Sparkles className="w-3.5 h-3.5 text-primary" />
+                  <p className="text-[11px] font-medium text-primary leading-none">
+                    Uploaded by{" "}
+                    <span className="font-bold">
+                      {rowDataFromcontentTable.uploadedBy}
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>
@@ -289,15 +306,15 @@ const SubjectIdViews = ({ subjectId }: Props) => {
             title="Class Notes"
             files={groupedFiles.notes}
             icon={<BookOpen className="w-5 h-5 text-primary" />}
-            description="Lecture notes, slides, and study materials"
+            description="Lecture notes, slides"
             sectionKey="notes"
           />
 
           <CollapsibleSection
-            title="Tutorials & Labs"
+            title="Tutorials "
             files={groupedFiles.tutorials}
             icon={<Code className="w-5 h-5 text-primary" />}
-            description="Lab manuals, tutorial sheets, and practical guides"
+            description="Tutorial sheets"
             sectionKey="tutorials"
           />
 
@@ -305,7 +322,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
             title="Assignments"
             files={groupedFiles.assignments}
             icon={<ClipboardList className="w-5 h-5 text-primary" />}
-            description="Homework assignments and problem sets"
+            description="Problem sets"
             sectionKey="assignments"
           />
 
@@ -313,7 +330,7 @@ const SubjectIdViews = ({ subjectId }: Props) => {
             title="Previous Year Questions"
             files={groupedFiles.pyqs}
             icon={<FileQuestion className="w-5 h-5 text-primary" />}
-            description="Exam papers and previous year questions"
+            description="Previous year questions"
             sectionKey="pyqs"
           />
 
