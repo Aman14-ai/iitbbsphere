@@ -50,7 +50,7 @@ const Hero2 = ({ isBirthDate }: Props) => {
             Learning <span className="text-primary animate-pulse-slow">Hub</span>
           </h1>
 
-          <p className="max-w-2xl mt-6 text-lg text-gray-600 dark:text-gray-300 animate-text-focus-in">
+          <p className="max-w-2xl mt-6  text-gray-600 dark:text-gray-300 animate-text-focus-in">
             A community built by students, for students. Explore, upload, and
             share IITBBS resources that help everyone shine brighter!
           </p>

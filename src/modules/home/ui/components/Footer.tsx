@@ -6,7 +6,7 @@ import { Github, Instagram, Linkedin } from "lucide-react";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const socialLinks = [
-    { name: "Instagram", url: "https://www.instagram.com/amanchoudhary.js/", icon: <Instagram /> },
+    { name: "Instagram", url: "https://www.instagram.com/amanchoudhary.ml/", icon: <Instagram /> },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/aman-kumar-356075293/", icon: <Linkedin /> },
     { name: "GitHub", url: "https://github.com/Aman14-ai", icon: <Github /> },
   ];

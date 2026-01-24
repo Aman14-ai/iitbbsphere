@@ -99,7 +99,7 @@ export const branches = [
       name: "Computer Science",
       slug: "computer-science",
       image:
-        "https://www.durham.ac.uk/media/durham-university/departments-/computer-science/84043.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmB0d3-drv1iPMd8cCrLG3Rk_w2WW9fcuOsw&s",
       color: "from-purple-400 to-purple-600",
       bgColor: "bg-purple-50 dark:bg-purple-950/20",
       studentCount: "100+",

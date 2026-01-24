@@ -23,7 +23,7 @@ const DashboardView = () => {
 
   if (searchBranch) {
     searchedBranches = branches.filter((branch) =>
-      branch.name.toLowerCase().includes(searchBranch.trim().toLowerCase())
+      branch.name.toLowerCase().includes(searchBranch.trim().toLowerCase()),
     );
   }
 
@@ -78,53 +78,50 @@ const DashboardView = () => {
             {searchedBranches.length > 0 ? (
               searchedBranches.map((branch) => (
                 <Link key={branch.slug} href={`/dashboard/${branch.slug}`}>
-                  <Card className="group h-full border border-transparent rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden">
-                    <CardContent className="p-4 sm:p-6 flex flex-col items-start">
-                      {/* Branch Image Container */}
-                      <div className="w-full h-30 mb-3 sm:mb-4 rounded-lg overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
-                        <div className="relative rounded-lg w-full h-full flex items-center justify-center">
-                          <Image
-                            width={400}
-                            height={600}
-                            className="rounded-lg"
-                            src={branch.image}
-                            alt={branch.name}
-                          />
+                  <Card className="pt-0 h-full overflow-hidden rounded-2xl border border-border/40 bg-white/90 dark:bg-gray-900/70 backdrop-blur shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <CardContent className="p-0 flex flex-col h-full space-y-3">
+                      {/* Image fully embedded in card */}
+                      <div className="relative w-full h-45">
+                        <Image
+                          src={branch.image}
+                          alt={branch.name}
+                          fill
+                          priority={false}
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-lg font-semibold text-white line-clamp-1">
+                            {branch.name}
+                          </h3>
                         </div>
                       </div>
 
-                      {/* Branch Name */}
-                      <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-1">
-                        {branch.name}
-                      </h3>
+                      {/* Content */}
+                      <div className="flex flex-col flex-1 px-5 py-4">
+                        <p className="text-muted-foreground mb-4 line-clamp-2">
+                          {branch.description}
+                        </p>
 
-                      {/* Description */}
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2 leading-tight">
-                        {branch.description}
-                      </p>
+                        {/* Stats */}
+                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-5">
+                          <div className="flex items-center gap-1">
+                            <Users className="w-4 h-4" />
+                            <span>{branch.studentCount} learners</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <BookOpen className="w-4 h-4" />
+                            <span>{branch.courses.split(",")[0]}</span>
+                          </div>
+                        </div>
 
-                      {/* Stats */}
-                      <div className="flex items-center justify-between text-[10px] sm:text-xs text-muted-foreground w-full mb-2 sm:mb-3">
-                        <div className="flex items-center gap-1">
-                          <Users className="w-3 h-3" />
-                          <span>{branch.studentCount}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <BookOpen className="w-3 h-3" />
-                          <span className="truncate max-w-[80px]">
-                            {branch.courses.split(",")[0]}
-                          </span>
-                        </div>
+                        {/* CTA */}
+                        <Button className="mt-auto w-full rounded-xl flex items-center justify-center gap-2">
+                          Explore Branch
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                        </Button>
                       </div>
-
-                      {/* CTA Button */}
-                      <Button
-                        variant="default"
-                        className="w-full py-1.5 sm:py-2 text-xs sm:text-sm border-border  hover:border-primary/30 text-white flex items-center justify-center gap-1 transition-colors"
-                      >
-                        <span>Explore Branch</span>
-                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
                     </CardContent>
                   </Card>
                 </Link>
@@ -135,25 +132,25 @@ const DashboardView = () => {
           </div>
 
           {/* Footer CTA */}
-          <div className="text-center mt-12">
-            <Card className="bg-primary/10 border-primary/20">
-              <CardContent className="p-6">
-                <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg sm:text-2xl font-bold text-foreground mb-1 sm:mb-2">
-                  Can&apos;t Find Your Branch?
-                </h3>
-                <p className="text-muted-foreground  sm:mb-4">
-                  Contact us to add your engineering branch to the platform
-                </p>
+          <div className="text-center mt-12 space-y-3">
+            <p className="text-sm sm:text-base text-muted-foreground">
+              Can’t find your branch? Help us expand the platform.
+            </p>
 
-                <Button
-                  onClick={() => setOpenContactDialog(true)}
-                  className="bg-primary"
-                >
-                  Request New Branch
-                </Button>
-              </CardContent>
-            </Card>
+            <button
+              onClick={() => setOpenContactDialog(true)}
+              className="
+              px-4 py-1.5
+              text-sm
+              border border-gray-300 dark:border-gray-600
+              rounded-md
+              text-gray-700 dark:text-gray-300
+              hover:bg-blue-200 dark:hover:bg-gray-800
+              transition-colors
+            "
+            >
+              Request branch
+            </button>
           </div>
         </div>
       </div>
