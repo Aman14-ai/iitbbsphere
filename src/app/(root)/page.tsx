@@ -30,7 +30,7 @@ export default async function Home() {
     console.log("session.user.email: ", session.user.email);
   }
   else if (session && !session.user.email.endsWith("@iitbbs.ac.in")) {
-    redirect("/sign-in?error=use your ittbbs mail id");
+    redirect("/sign-in?error=Please use your official IITBBS email ID to continue.");
   }
   let currentUserBirthDate;
   if (session) {
