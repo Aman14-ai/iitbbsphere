@@ -87,7 +87,7 @@ export const branches = [
       name: "Civil Engineering",
       slug: "civil",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3OJ4tw8qvwVGug1RMsJ72o3Itz1qLz4tujw&s",
+        "https://www.swamivivekanandauniversity.ac.in/resource/assets/img/dip-in-civil.jpg",
       color: "from-blue-400 to-blue-600",
       bgColor: "bg-blue-50 dark:bg-blue-950/20",
       studentCount: "120",
@@ -99,7 +99,7 @@ export const branches = [
       name: "Computer Science",
       slug: "computer-science",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmB0d3-drv1iPMd8cCrLG3Rk_w2WW9fcuOsw&s",
+        "https://miro.medium.com/v2/resize:fit:875/1*pTb5rtB1brbvt2Wa4ehZ_A.png",
       color: "from-purple-400 to-purple-600",
       bgColor: "bg-purple-50 dark:bg-purple-950/20",
       studentCount: "100+",
