@@ -7,7 +7,6 @@ import {
   ArrowRight,
   Users,
   BookOpen,
-  Sparkles,
   SearchIcon,
   RotateCcw,
 } from "lucide-react";

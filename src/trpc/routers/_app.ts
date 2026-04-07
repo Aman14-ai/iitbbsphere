@@ -5,6 +5,7 @@ import { wishesRouter } from "@/modules/wishes/server/procedure";
 import { communityRouter } from "@/modules/community/server/procedure";
 import { adminRouter } from "@/modules/admin/server/procedure";
 import { semesterRouter } from "@/modules/semester/server/procedure";
+import { jeeRouter } from "@/modules/jee/server/procedure";
 
 export const appRouter = createTRPCRouter({
   user: userRouter,
@@ -13,6 +14,7 @@ export const appRouter = createTRPCRouter({
   community: communityRouter,
   admin: adminRouter,
   semester: semesterRouter,
+  jee:jeeRouter
 });
 
 export type AppRouter = typeof appRouter;

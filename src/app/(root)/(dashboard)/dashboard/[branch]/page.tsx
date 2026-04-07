@@ -22,7 +22,7 @@ const page = async ({ params }: Props) => {
     redirect("/sign-in");
   }
 
-  const { branch } = await params;
+  const { branch } = await params;  
   return (
     <>
       <DashboardBranchView branch={branch} />

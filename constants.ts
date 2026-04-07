@@ -2,7 +2,8 @@ export const adminEmail = [
   "24ce01005@iitbbs.ac.in",
   "24cs01005@iitbbs.ac.in",
   "24ce01006@iitbbs.ac.in",
-  "aman@iitbbs.ac.in"
+  "aman@iitbbs.ac.in",
+  "24cs01000@iitbbs.ac.in",
 ];
 
 export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']

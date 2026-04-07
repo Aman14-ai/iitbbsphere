@@ -1,21 +1,19 @@
 import { auth } from "@/lib/auth";
-import SemesterView from "@/modules/semester/ui/views/SemesterView";
+import JEESubjectsView from "@/modules/jee/views/JEESubjectsView";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
 
-interface Props {
-  params: Promise<{ sem: string }>;
-}
-
 export const metadata: Metadata = {
-  title: "IITBBSphere | Contents",
+  title: "IITBBSphere | JEE Contents",
 };
 
-const page = async ({ params }: Props) => {
-  const { sem } = await params;
+interface Props {
+  params: Promise<{ topic: string }>;
+}
 
+const page = async ({ params }: Props) => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -23,12 +21,12 @@ const page = async ({ params }: Props) => {
     redirect("/sign-in");
   }
 
+  const { topic } = await params;
+
   return (
-    <>
     <div className="bg-gradient-to-b from-background to-ring/30">
-      <SemesterView />
+      <JEESubjectsView topic={topic} />
     </div>
-    </> 
   );
 };
 
