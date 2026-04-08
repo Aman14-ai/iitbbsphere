@@ -8,6 +8,8 @@ export const adminEmail = [
 
 export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']
 
+export const AllowedPrivateContentEmail = ['amansachi2005@gmail.com','amancode2005@gmail.com','24ce01006@iitbbs.ac.in']
+
 export type DriveFile = {
   id: string;
   name: string;

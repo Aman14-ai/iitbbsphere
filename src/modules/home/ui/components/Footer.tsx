@@ -17,7 +17,9 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6 max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
             <div className="text-center md:text-left">
-              © {currentYear} IITBBSphere. All rights reserved.
+              © {currentYear} IITBBSphere. All rights <Link href="/jee">
+                reserved.
+              </Link>
             </div>
             <div className="flex items-center gap-4">
               <span className="hidden md:flex">Follow us:</span>

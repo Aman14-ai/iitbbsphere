@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import { AllowedPrivateContentEmail } from '../../../../constants'
 
 export const metadata:Metadata={
     title: "IITBBSphere | JEE"
@@ -16,6 +17,11 @@ const page = async() => {
       });
       if (!session) {
         redirect("/sign-in");
+      }
+
+      if(!AllowedPrivateContentEmail.includes(session.user.email))
+      {
+        redirect("/");
       }
 
   return (
