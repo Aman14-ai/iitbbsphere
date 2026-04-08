@@ -8,6 +8,15 @@ import React, { useState, useMemo, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"; // <-- Added pagination
 import Link from "next/link";
 import {
   BookOpen,
@@ -19,9 +28,14 @@ import {
   Crown,
   ChevronLeft,
   ChevronRight,
+  XCircle,
+  Search,
 } from "lucide-react";
 import NoContent from "../components/NoContent";
 import Contribute from "../components/Contribute";
+import { Input } from "@/components/ui/input";
+
+const ITEMS_PER_PAGE = 6; // Adjust as needed
 
 const SemesterView = () => {
   const pathname = usePathname();
@@ -38,6 +52,7 @@ const SemesterView = () => {
 
   const [search, setSearch] = useState("");
   const [selectedYear, setSelectedYear] = useState<string>("All");
+  const [page, setPage] = useState(1); // <-- Pagination state
   const yearRef = useRef<HTMLDivElement | null>(null);
 
   const years = useMemo(() => {
@@ -51,6 +66,7 @@ const SemesterView = () => {
     return ["All", ...uniq];
   }, [data]);
 
+  // Filtered data (all subjects matching search & year)
   const filteredData = useMemo(() => {
     if (!data) return [];
     const query = search.toLowerCase();
@@ -67,11 +83,29 @@ const SemesterView = () => {
     return list;
   }, [data, search, selectedYear]);
 
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+  const paginatedData = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return filteredData.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredData, page]);
+
+  // Reset page when filters change
+  const handleYearChange = (year: string) => {
+    setSelectedYear(year);
+    setPage(1);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setPage(1);
+  };
+
   if (isLoading || !data) {
     return (
       <LoadingState
         title="Loading Content"
-        description="Please wait. It may takes few seconds"
+        description="Please wait. It may take a few seconds"
       />
     );
   }
@@ -79,7 +113,7 @@ const SemesterView = () => {
     return (
       <ErrorState
         title="Something went wrong"
-        description="please try again later."
+        description="Please try again later."
       />
     );
   }
@@ -109,7 +143,7 @@ const SemesterView = () => {
               <GraduationCap className="w-4 h-4" />
               Semester {semester}
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold  mb-3">
+            <h1 className="text-2xl md:text-3xl font-bold mb-3">
               {formatBranchName(branch)} Engineering
             </h1>
             <p className="text-muted-foreground text-sm md:text-md">
@@ -117,6 +151,30 @@ const SemesterView = () => {
             </p>
           </div>
 
+          {/* Search Bar (added from earlier pattern) */}
+          <div className="max-w-md mx-auto mb-6 relative group">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+            </div>
+            <Input
+              type="text"
+              placeholder="Search by subject name, code or year..."
+              value={search}
+              onChange={handleSearchChange}
+              className="pl-10 pr-10 py-5 text-base rounded-xl shadow-sm border-border focus-visible:ring-primary/50 transition-all bg-background"
+            />
+            {search && (
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setPage(1);
+                }}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <XCircle className="h-5 w-5" />
+              </button>
+            )}
+          </div>
 
           {/* Year selector */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
@@ -142,8 +200,8 @@ const SemesterView = () => {
                         key={year}
                         role="tab"
                         aria-selected={isSelected}
-                        onClick={() => setSelectedYear(year)}
-                        className={`whitespace-nowrap px-3 md:px-4 py-1.5  rounded-full border transition-all duration-150 flex items-center gap-1 text-sm font-medium ${
+                        onClick={() => handleYearChange(year)}
+                        className={`whitespace-nowrap px-3 md:px-4 py-1.5 rounded-full border transition-all duration-150 flex items-center gap-1 text-sm font-medium ${
                           isSelected
                             ? "bg-primary text-primary-foreground shadow-lg scale-105"
                             : "bg-muted text-muted-foreground border-input hover:border-primary"
@@ -166,10 +224,10 @@ const SemesterView = () => {
             </div>
           </div>
 
-          {/* Subjects Grid */}
+          {/* Subjects Grid (Paginated) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredData.length > 0 ? (
-              filteredData.map((subject) => (
+            {paginatedData.length > 0 ? (
+              paginatedData.map((subject) => (
                 <Card
                   key={subject.id}
                   className="group border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:scale-105"
@@ -244,24 +302,101 @@ const SemesterView = () => {
                 </Card>
               ))
             ) : (
-              <p className="col-span-full text-center text-muted-foreground">
-                No results found for{" "}
-                <span className="font-semibold">{search}</span>
-              </p>
+              <div className="col-span-full flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-border rounded-2xl bg-muted/20">
+                <Search className="w-12 h-12 text-muted-foreground/50 mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-1">
+                  No subjects found
+                </h3>
+                <p className="text-center text-muted-foreground max-w-sm mb-4">
+                  {search
+                    ? `No results for "${search}"`
+                    : `No subjects available for year ${selectedYear}`}
+                </p>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSearch("");
+                    setSelectedYear("All");
+                    setPage(1);
+                  }}
+                  className="hover:bg-primary/10"
+                >
+                  Clear Filters
+                </Button>
+              </div>
             )}
           </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="mt-10">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      className={
+                        page === 1 ? "pointer-events-none opacity-50" : ""
+                      }
+                    />
+                  </PaginationItem>
+
+                  {page > 2 && (
+                    <PaginationItem>
+                      <PaginationLink onClick={() => setPage(1)}>
+                        1
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+
+                  {page > 3 && (
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  )}
+
+                  <PaginationItem>
+                    <PaginationLink isActive>{page}</PaginationLink>
+                  </PaginationItem>
+
+                  {page < totalPages - 2 && (
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  )}
+
+                  {page < totalPages - 1 && (
+                    <PaginationItem>
+                      <PaginationLink onClick={() => setPage(totalPages)}>
+                        {totalPages}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                      className={
+                        page === totalPages ? "pointer-events-none opacity-50" : ""
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </div>
       </div>
       <Contribute />
 
-      {/* hide scrollbar styles (works for modern browsers) */}
+      {/* hide scrollbar styles */}
       <style jsx>{`
         .hide-scrollbar {
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         .hide-scrollbar::-webkit-scrollbar {
-          display: none; /* Chrome, Safari and Opera */
+          display: none;
         }
       `}</style>
     </>
