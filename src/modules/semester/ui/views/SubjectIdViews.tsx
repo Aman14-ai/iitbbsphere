@@ -2,7 +2,6 @@
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import React, { useEffect, useState, useMemo } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   BookOpen,
@@ -18,6 +17,9 @@ import {
   Sparkles,
   ChevronDown,
   ChevronRight,
+  Search,
+  XCircle,
+  File,
 } from "lucide-react";
 import { DriveFile, FileGroup } from "../../../../../constants";
 import { categorizeFile } from "@/lib/utils";
@@ -26,6 +28,62 @@ import LoadingState from "@/components/LoadingState";
 interface Props {
   subjectId: string;
 }
+
+const SECTION_CONFIG = {
+  notes: {
+    label: "Class Notes",
+    description: "Lecture notes & slides",
+    icon: BookOpen,
+    color: "text-violet-500",
+    bg: "bg-violet-500/10",
+    border: "border-violet-500/20",
+    strip: "bg-violet-500",
+  },
+  tutorials: {
+    label: "Tutorials",
+    description: "Tutorial sheets & practice problems",
+    icon: Code,
+    color: "text-sky-500",
+    bg: "bg-sky-500/10",
+    border: "border-sky-500/20",
+    strip: "bg-sky-500",
+  },
+  assignments: {
+    label: "Assignments",
+    description: "Problem sets & submissions",
+    icon: ClipboardList,
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/20",
+    strip: "bg-emerald-500",
+  },
+  pyqs: {
+    label: "Previous Year Questions",
+    description: "Past exam papers",
+    icon: FileQuestion,
+    color: "text-amber-500",
+    bg: "bg-amber-500/10",
+    border: "border-amber-500/20",
+    strip: "bg-amber-500",
+  },
+  other: {
+    label: "Other Files",
+    description: "Additional resources",
+    icon: FileText,
+    color: "text-rose-500",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
+    strip: "bg-rose-500",
+  },
+};
+
+const FILE_TYPE_STYLES: Record<string, { color: string; label: string }> = {
+  pdf: { color: "text-red-500", label: "PDF" },
+  word: { color: "text-blue-500", label: "DOC" },
+  document: { color: "text-blue-500", label: "DOC" },
+  sheet: { color: "text-green-500", label: "XLS" },
+  presentation: { color: "text-orange-500", label: "PPT" },
+};
 
 const SubjectIdViews = ({ subjectId }: Props) => {
   const [files, setFiles] = useState<DriveFile[]>([]);
@@ -37,29 +95,26 @@ const SubjectIdViews = ({ subjectId }: Props) => {
     other: [],
   });
   const [search, setSearch] = useState("");
-  const [expandedSections, setExpandedSections] = useState<
-    Record<string, boolean>
-  >({
-    notes: true, // Default open
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    notes: true,
     tutorials: false,
     assignments: false,
     pyqs: false,
     other: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const trpc = useTRPC();
   const { data: rowDataFromcontentTable } = useSuspenseQuery(
     trpc.semester.getRowOfContentsByRowId.queryOptions({ id: subjectId })
   );
 
-  // Filter files by search query
   const filteredFiles = useMemo(() => {
     if (!search) return files;
     const query = search.toLowerCase();
     return files.filter((file) => file.name.toLowerCase().includes(query));
   }, [files, search]);
 
-  // Group files whenever filteredFiles change
   useEffect(() => {
     const grouped = filteredFiles.reduce(
       (acc, file) => {
@@ -67,19 +122,11 @@ const SubjectIdViews = ({ subjectId }: Props) => {
         acc[category].push(file);
         return acc;
       },
-      {
-        notes: [],
-        tutorials: [],
-        assignments: [],
-        pyqs: [],
-        other: [],
-      } as FileGroup
+      { notes: [], tutorials: [], assignments: [], pyqs: [], other: [] } as FileGroup
     );
     setGroupedFiles(grouped);
   }, [filteredFiles]);
 
-  // Fetch files from API
-  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     async function fetchFiles() {
       setIsLoading(true);
@@ -101,261 +148,193 @@ const SubjectIdViews = ({ subjectId }: Props) => {
   }, [rowDataFromcontentTable.folderId]);
 
   const toggleSection = (section: string) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
+    setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
-  // Get file icon based on mime type
-  const getFileIcon = (mimeType: string) => {
-    if (mimeType.includes("pdf"))
-      return <FileText className="w-4 h-4 text-red-500" />;
-    if (mimeType.includes("word") || mimeType.includes("document"))
-      return <FileText className="w-4 h-4 text-blue-500" />;
-    if (mimeType.includes("sheet"))
-      return <FileText className="w-4 h-4 text-green-500" />;
-    if (mimeType.includes("presentation"))
-      return <FileText className="w-4 h-4 text-orange-500" />;
-    return <FileText className="w-4 h-4 text-gray-500" />;
+  const getFileTypeMeta = (mimeType: string) => {
+    for (const [key, val] of Object.entries(FILE_TYPE_STYLES)) {
+      if (mimeType.includes(key)) return val;
+    }
+    return { color: "text-muted-foreground", label: "FILE" };
   };
 
-  // Collapsible Section Component
-  const CollapsibleSection = ({
-    title,
-    files,
-    icon,
-    description,
-    sectionKey,
-  }: {
-    title: string;
-    files: DriveFile[];
-    icon: React.ReactNode;
-    description?: string;
-    sectionKey: string;
-  }) => {
-    const isExpanded = expandedSections[sectionKey];
-
-    if (files.length === 0) return null;
-
-    return (
-      <Card className="border-border">
-        <CardContent className="p-0">
-          {/* Section Header - Clickable */}
-          <button
-            onClick={() => toggleSection(sectionKey)}
-            className="w-full py-1 px-6 text-left hover:bg-accent/50 transition-colors rounded-t-lg"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4 flex-1">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  {icon}
-                </div>
-                <div className="flex-1 text-left">
-                  <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {title}
-                    </h3>
-                    <Badge variant="secondary" className="text-xs">
-                      {files.length} {files.length === 1 ? "file" : "files"}
-                    </Badge>
-                  </div>
-                  {description && (
-                    <p className="text-sm text-muted-foreground text-left">
-                      {description}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="flex-shrink-0">
-                {isExpanded ? (
-                  <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                ) : (
-                  <ChevronRight className="w-5 h-5 text-muted-foreground" />
-                )}
-              </div>
-            </div>
-          </button>
-
-          {/* Files List - Collapsible */}
-          {isExpanded && (
-            <div className="px-6 py-4 space-y-3">
-              {files.map((file) => (
-                <div
-                  key={file.id}
-                  className="flex items-center justify-between p-3 border border-border rounded-lg hover:bg-accent/30 transition-colors group"
-                >
-                  <div className="flex items-center gap-3 flex-1 min-w-0">
-                    {getFileIcon(file.mimeType)}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm truncate text-foreground">
-                        {file.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground capitalize">
-                        {file.mimeType.split("/")[1]} •{" "}
-                        {file.webContentLink ? "Downloadable" : "View only"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={file.webViewLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="h-8 w-8 p-0 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                    {file.webContentLink && (
-                      <a
-                        href={file.webContentLink}
-                        download
-                        className="hidden md:inline-flex h-8 w-8 p-0  items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                      >
-                        <Download className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    );
-  };
-
-  const totalFiles = Object.values(groupedFiles).reduce(
-    (sum, arr) => sum + arr.length,
-    0
-  );
+  const totalFiles = Object.values(groupedFiles).reduce((sum, arr) => sum + arr.length, 0);
 
   if (isLoading) {
     return (
       <LoadingState
         title="Loading files"
-        description="Please wait. It may takes few seconds"
+        description="Please wait. It may take a few seconds"
       />
     );
   }
 
   return (
-    <div className="bg-gradient-to-b from-background to-ring/30 min-h-screen py-25  px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <Card className="overflow-hidden border-l-4 border-l-primary bg-primary/2 transition-all hover:shadow-md mb-6">
-          <CardContent className="py-4 px-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                {/* Top Row: Badges and Subject Code */}
-                <div className="flex items-center gap-2 mb-1">
-                  <Badge
-                    variant="secondary"
-                    className="px-1.5 py-0 text-[10px] uppercase tracking-wider font-bold"
-                  >
-                    {rowDataFromcontentTable.subjectCode}
-                  </Badge>
-                  <span className="text-xs font-medium text-muted-foreground uppercase">
-                    Semester {rowDataFromcontentTable.semester}
-                  </span>
-                </div>
+    <div className="min-h-screen py-25 px-4 bg-gradient-to-b from-background to-muted/30">
+      <div className="max-w-3xl mx-auto">
 
-                {/* Middle Row: Subject Name */}
-                <h2 className="text-xl font-semibold tracking-tight text-foreground truncate mb-1.5">
-                  {rowDataFromcontentTable.subjectName}
-                </h2>
+        {/* Subject Info Card */}
+        <div className="rounded-2xl border bg-card overflow-hidden mb-7 shadow-sm">
+          {/* Colored top bar */}
+          <div className="h-1.5 w-full bg-gradient-to-r from-primary via-primary/60 to-primary/20" />
 
-                {/* Bottom Row: Metadata Highlights */}
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5" />
-                    <span className="truncate max-w-[150px]">
-                      {rowDataFromcontentTable.professor}
-                    </span>
-                  </div>
-                  <div className=" items-center gap-1.5 border-l pl-4 hidden sm:flex">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>AY {rowDataFromcontentTable.academicYear}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 border-l pl-4">
-                    <FolderOpen className="w-3.5 h-3.5" />
-                    <span>{totalFiles} files</span>
-                  </div>
-                </div>
+          <div className="p-6">
+            {/* Top row */}
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2.5 py-0.5 rounded-lg bg-primary/10 text-primary text-xs font-bold tracking-wide border border-primary/20">
+                  {rowDataFromcontentTable.subjectCode}
+                </span>
+                <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+                  Semester {rowDataFromcontentTable.semester}
+                </span>
               </div>
-
-              {/* Right Side: Secondary Info/Actions */}
-              <div className="flex items-center shrink-0 border-t md:border-t-0 pt-3 md:pt-0">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/10">
-                  <Sparkles className="w-3.5 h-3.5 text-primary" />
-                  <p className="text-[11px] font-medium text-primary leading-none">
-                    Uploaded by{" "}
-                    <span className="font-bold">
-                      {rowDataFromcontentTable.uploadedBy}
-                    </span>
-                  </p>
-                </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 shrink-0">
+                <Sparkles className="w-3 h-3 text-amber-500" />
+                <span className="text-[11px] font-semibold text-amber-700 dark:text-amber-400">
+                  {rowDataFromcontentTable.uploadedBy}
+                </span>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Collapsible File Sections */}
-        <div className="space-y-4">
-          <CollapsibleSection
-            title="Class Notes"
-            files={groupedFiles.notes}
-            icon={<BookOpen className="w-5 h-5 text-primary" />}
-            description="Lecture notes, slides"
-            sectionKey="notes"
-          />
+            {/* Subject name */}
+            <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground mb-4 leading-snug">
+              {rowDataFromcontentTable.subjectName}
+            </h1>
 
-          <CollapsibleSection
-            title="Tutorials "
-            files={groupedFiles.tutorials}
-            icon={<Code className="w-5 h-5 text-primary" />}
-            description="Tutorial sheets"
-            sectionKey="tutorials"
-          />
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1.5">
+                <div className="w-6 h-6 rounded-md bg-muted flex items-center justify-center">
+                  <User className="w-3.5 h-3.5" />
+                </div>
+                <span>{rowDataFromcontentTable.professor}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-6 h-6 rounded-md bg-muted flex items-center justify-center">
+                  <Calendar className="w-3.5 h-3.5" />
+                </div>
+                <span>AY {rowDataFromcontentTable.academicYear}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-6 h-6 rounded-md bg-muted flex items-center justify-center">
+                  <FolderOpen className="w-3.5 h-3.5" />
+                </div>
+                <span>{totalFiles} {totalFiles === 1 ? "file" : "files"}</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <CollapsibleSection
-            title="Assignments"
-            files={groupedFiles.assignments}
-            icon={<ClipboardList className="w-5 h-5 text-primary" />}
-            description="Problem sets"
-            sectionKey="assignments"
-          />
+        
 
-          <CollapsibleSection
-            title="Previous Year Questions"
-            files={groupedFiles.pyqs}
-            icon={<FileQuestion className="w-5 h-5 text-primary" />}
-            description="Previous year questions"
-            sectionKey="pyqs"
-          />
+        {/* File Sections */}
+        <div className="space-y-3">
+          {(Object.entries(SECTION_CONFIG) as [keyof FileGroup, typeof SECTION_CONFIG[keyof typeof SECTION_CONFIG]][]).map(
+            ([key, config]) => {
+              const sectionFiles = groupedFiles[key];
+              if (!sectionFiles || sectionFiles.length === 0) return null;
+              const isExpanded = expandedSections[key];
+              const Icon = config.icon;
 
-          {groupedFiles.other.length > 0 && (
-            <CollapsibleSection
-              title="Other Files"
-              files={groupedFiles.other}
-              icon={<FileText className="w-5 h-5 text-primary" />}
-              description="Additional resources and materials"
-              sectionKey="other"
-            />
+              return (
+                <div
+                  key={key}
+                  className={`rounded-2xl border bg-card overflow-hidden transition-all duration-200 ${config.border}`}
+                >
+                  {/* Section header */}
+                  <button
+                    onClick={() => toggleSection(key)}
+                    className="w-full flex items-center justify-between px-5 py-4 hover:bg-accent/40 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-xl ${config.bg} flex items-center justify-center shrink-0`}>
+                        <Icon className={`w-4.5 h-4.5 ${config.color}`} />
+                      </div>
+                      <div className="text-left">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-sm text-foreground">
+                            {config.label}
+                          </span>
+                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${config.bg} ${config.color}`}>
+                            {sectionFiles.length}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-0.5">{config.description}</p>
+                      </div>
+                    </div>
+                    {isExpanded
+                      ? <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" />
+                      : <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
+                    }
+                  </button>
+
+                  {/* Files list */}
+                  {isExpanded && (
+                    <div className="px-4 pb-4 space-y-2">
+                      <div className={`h-px w-full bg-gradient-to-r from-transparent ${config.border.replace("border-", "via-")} to-transparent mb-3`} />
+                      {sectionFiles.map((file) => {
+                        const typeMeta = getFileTypeMeta(file.mimeType);
+                        return (
+                          <div
+                            key={file.id}
+                            className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl border border-border/60 bg-background hover:bg-accent/30 hover:border-border transition-all group/file"
+                          >
+                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                              <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                                <File className={`w-3.5 h-3.5 ${typeMeta.color}`} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-foreground truncate leading-tight">
+                                  {file.name}
+                                </p>
+                                <p className="text-[11px] text-muted-foreground mt-0.5">
+                                  {typeMeta.label} · {file.webContentLink ? "Downloadable" : "View only"}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-1 shrink-0">
+                              <a
+                                href={file.webViewLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                                title="Open"
+                              >
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                              {file.webContentLink && (
+                                <a
+                                  href={file.webContentLink}
+                                  download
+                                  className="w-8 h-8 rounded-lg hidden md:flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                                  title="Download"
+                                >
+                                  <Download className="w-3.5 h-3.5" />
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            }
           )}
 
+          {/* Empty state */}
           {totalFiles === 0 && !isLoading && (
-            <Card className="text-center p-8">
-              <CardContent>
-                <FolderOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  No Files Found
-                </h3>
-                <p className="text-muted-foreground">
-                  No study materials have been uploaded for this subject yet.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="flex flex-col items-center justify-center py-20 rounded-2xl border-2 border-dashed border-border bg-muted/20 text-center px-4">
+              <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center mb-4">
+                <FolderOpen className="w-6 h-6 text-muted-foreground/50" />
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-1">No files yet</h3>
+              <p className="text-sm text-muted-foreground max-w-xs">
+                No study materials have been uploaded for this subject yet.
+              </p>
+            </div>
           )}
         </div>
       </div>
