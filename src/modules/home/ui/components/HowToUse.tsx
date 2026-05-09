@@ -18,9 +18,10 @@ const HowToUse = () => {
           Explore Branches
         </h2>
         <p className=" max-w-2xl text-sm md:text-base text-gray-600 dark:text-gray-300">
-          <span>Academic content curated by professors. Organized
-          clearly by branch, semester, and year for effortless learning.
-          <span className="max-sm:hidden">Everything you need for your coursework, structured and reliable.</span> </span>
+          <span>
+            Academic content curated by professors. Organized clearly by branch,
+            semester, and year for effortless learning.
+          </span>
         </p>
       </div>
 
