@@ -6,9 +6,11 @@ export const adminEmail = [
   "24cs01000@iitbbs.ac.in",
 ];
 
-export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com']
+export const AllowedEmail = ['amansachi2005@gmail.com' , 'dhanjidwivedi@gmail.com','eyanamatthew@gmail.com']
 
-export const AllowedPrivateContentEmail = ['amansachi2005@gmail.com','amancode2005@gmail.com','24ce01006@iitbbs.ac.in','24cs01000@iitbbs.ac.in','dhanjidwivedi@gmail.com']
+export const AllowedPrivateContentEmail = ['amansachi2005@gmail.com','amancode2005@gmail.com','24ce01006@iitbbs.ac.in','24cs01000@iitbbs.ac.in','dhanjidwivedi@gmail.com','eyanamatthew@gmail.com']
+
+export const OnlyPrivateContentEmail = ['eyanamatthew@gmail.com']
 
 export type DriveFile = {
   id: string;

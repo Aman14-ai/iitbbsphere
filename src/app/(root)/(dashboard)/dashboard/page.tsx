@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";
+import { OnlyPrivateContentEmail } from "../../../../../constants";
 
 export const metadata: Metadata = {
   title: "IITBBSphere | Branch",
@@ -17,6 +18,10 @@ const page = async () => {
 
   if (!session) {
     redirect("/sign-in");
+  }
+
+  if(OnlyPrivateContentEmail.includes(session.user.email)){
+    redirect("/jee");
   }
 
   return (
