@@ -92,7 +92,7 @@ export const branches = [
       name: "Civil Engineering",
       slug: "civil",
       image:
-        "https://www.swamivivekanandauniversity.ac.in/resource/assets/img/dip-in-civil.jpg",
+        "https://www.clarkson.edu/sites/default/files/2023-05/Civil-Engineering-Hero-1600x900.jpg",
       color: "from-blue-400 to-blue-600",
       bgColor: "bg-blue-50 dark:bg-blue-950/20",
       studentCount: "120",
