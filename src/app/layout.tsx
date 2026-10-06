@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IITBBSphere",
-  description: "Explore IITBBSphere",
+  description: "Aman Choudhary",
   verification: {
     google: "cuKCozReqz2BLm3k2FmncWouIcRARwNQPg9lpycMhUs",
   },
