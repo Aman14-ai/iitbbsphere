@@ -29,6 +29,7 @@ const subjects = [
   { id: "inorganic", name: "Inorganic Chemistry", icon: "💎" },
   { id: "maths", name: "Mathematics", icon: "📐" },
   { id: "dsa", name: "Data Structures (DSA)", icon: "💻" },
+  { id: "bakchodi", name: "Bakchodi", icon: "🫠" },
 ];
 
 const JeeDialog = ({ isOpen, onOpenChange }: Props) => {
